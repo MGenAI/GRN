@@ -40,13 +40,13 @@ GRN achieves state-of-the-art results on ImageNet reconstruction and class-condi
 </p>
 
 <figure align="center">
-  <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
   <figcaption><em>Class-to-Image Examples</em></figcaption>
+  <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
 </figure>
 
 <figure align="center">
-  <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
   <figcaption><em>Text-to-Image Examples</em></figcaption>
+  <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
 </figure>
 
 ---
@@ -89,8 +89,6 @@ Check this [issue](https://github.com/conda/conda/issues/13812#issuecomment-2071
 ---
 
 ## 🖼️ Class-to-Image
-
-Our implementation of C2I is based on [JiT](https://github.com/LTH14/JiT). Thanks for their wonderful work.
 
 ### Dataset
 Download [ImageNet](http://image-net.org/download) dataset, and place it in your `IMAGENET_PATH`.
