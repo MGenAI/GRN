@@ -35,8 +35,13 @@ We introduce **Generative Refinement Networks (GRN)**, a new visual synthesis pa
 
 GRN achieves state-of-the-art results on ImageNet reconstruction and class-conditional generation, and scales effectively to text-to-image and text-to-video tasks.
 
-<p align="center">
+<figure align="center">
+  <figcaption><em>Generative Refinement Framework</em></figcaption>
   <img src="demo/framework.jpg" width="100%" alt="Framework">
+</figure>
+
+<p align="center">
+Starting from a random token map, GRN randomly selects more predictions at each step and refines all input tokens. For example, compared to the second step, the third step filled six new tokens (<span style="color: rgb(220, 120, 117);">pink</span>), kept two tokens (<span style="color: rgb(88, 160, 227);">blue</span>), erased two tokens (<span style="color: rgb(240, 180, 40);">yellow</span>), and left six tokens blank (<span style="color: rgb(128, 138, 151);">gray</span>).
 </p>
 
 <figure align="center">
