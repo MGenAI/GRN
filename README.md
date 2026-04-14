@@ -1,132 +1,145 @@
 # GRN: Generative Refinement Networks
 
-[![arXiv](https://img.shields.io/badge/arXiv%20paper-xxxx-b31b1b.svg)](https://arxiv.org/abs/xxxx)&nbsp;
+[![arXiv](https://img.shields.io/badge/arXiv%20paper-xxxx-b31b1b.svg)](https://arxiv.org/abs/xxxx)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1+-red.svg)](https://pytorch.org/)
+[![GitHub stars](https://img.shields.io/github/stars/MGenAI/GRN?style=social)](https://github.com/MGenAI/GRN)
 
-This is a PyTorch implementation of the paper [Generative Refinement Networks](https://arxiv.org/abs/xxxx):
+This is the official implementation of the paper **Generative Refinement Networks for Visual Synthesis**.
 
-<!-- ```
-@article{li2025GRN,
-  title={Back to Basics: Let Denoising Generative Models Denoise},
-  author={Li, Tianhong and He, Kaiming},
-  journal={arXiv preprint arXiv:2511.13720},
-  year={2025}
-}
-``` -->
-### Introduction
+---
+
+## 📋 Table of Contents
+
+- [🌟 Introduction](#-introduction)
+- [📑 Open-Source Plan](#-open-source-plan)
+- [🛠️ Installation](#️-installation)
+- [🖼️ Class-to-Image](#️-class-to-image)
+  - [Dataset](#dataset)
+  - [Training](#training)
+  - [Evaluation](#evaluation)
+- [🤗 Acknowledgements](#-acknowledgements)
+- [📝 Citation](#-citation)
+
+---
+
+## 🌟 Introduction
+
+Diffusion models dominate visual generation but they allocate uniform computational effort to samples with varying levels of complexity. Autoregressive (AR) models are complexity-aware, as evidenced by their variable likelihoods, but suffer from lossy tokenization and error accumulation.
+
+We introduce **Generative Refinement Networks (GRN)**, a new visual synthesis paradigm that addresses these issues:
+- **Near-lossless tokenization** via Hierarchical Binary Quantization (HBQ)
+- **Global refinement mechanism** that progressively perfects outputs like a human artist
+- **Entropy-guided sampling** for complexity-aware, adaptive-step generation
+
+GRN achieves state-of-the-art results on ImageNet reconstruction and class-conditional generation, and scales effectively to text-to-image and text-to-video tasks.
+
 <p align="center">
-  <img src="demo/framework.jpg" width="100%">
+  <img src="demo/framework.jpg" width="100%" alt="Framework">
 </p>
 
+<figure align="center">
+  <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
+  <figcaption><em>Class-to-Image Examples</em></figcaption>
+</figure>
 
-<p align="center">
-  <img src="demo/c2i_examples.jpg" width="100%">
-</p>
+<figure align="center">
+  <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
+  <figcaption><em>Text-to-Image Examples</em></figcaption>
+</figure>
 
-<p align="center">
-  <img src="demo/t2i_examples.jpg" width="100%">
-</p>
-
-
+---
 
 ## 📑 Open-Source Plan
-GRN adopts a minimalist and self-contained design. This implementation is in PyTorch+GPU.
-  - [] GRN T2V Checkpoints
-  - [] GRN T2V Inference Code
-  - [x] GRN T2V Training Code
-  - [] GRN T2I Checkpoints
-  - [] GRN T2I Inference Code
-  - [x] GRN T2I Training Code
-  - [] GRN C2I Checkpoints
-  - [x] GRN C2I Inference Code
-  - [x] GRN C2I Training Code
 
+GRN adopts a minimalist and self-contained design. This implementation is in PyTorch + GPU.
 
+| Task | Checkpoints | Inference Code | Training Code |
+|------|:-----------:|:--------------:|:-------------:|
+| T2V  |     ⬜      |       ⬜        |      ✅       |
+| T2I  |     ⬜      |       ⬜        |      ✅       |
+| C2I  |     ⬜      |       ✅        |      ✅       |
 
-## Installation
+---
 
-Download the code: 
-```
+## 🛠️ Installation
+
+### Step 1: Clone the repository
+```bash
 git clone https://github.com/MGenAI/GRN
 cd GRN
 ```
 
+### Step 2: Create conda environment
 A suitable [conda](https://conda.io/) environment named `GRN` can be created and activated with:
-
-```
+```bash
 conda env create -f environment.yaml
 conda activate GRN
 ```
 
-If you get ```undefined symbol: iJIT_NotifyEvent``` when importing ```torch```, simply
-```
+### Troubleshooting
+If you get `undefined symbol: iJIT_NotifyEvent` when importing `torch`, simply:
+```bash
 pip uninstall torch
 pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu124
 ```
 Check this [issue](https://github.com/conda/conda/issues/13812#issuecomment-2071445372) for more details.
 
+---
 
-## class-to-image
+## 🖼️ Class-to-Image
+
+Our implementation of C2I is based on [JiT](https://github.com/LTH14/JiT). Thanks for their wonderful work.
+
 ### Dataset
 Download [ImageNet](http://image-net.org/download) dataset, and place it in your `IMAGENET_PATH`.
 
 ### Training
-Example script for training GRN_ind_B on ImageNet 256x256 for 600 epochs, we suggest using 8x80GB GPUs:
-```
-bash scripts/c2i/train_GRN_ind_B.sh
-```
-We suggest using 8x80GB GPUs for training.
 
-Example script for training GRN_bit_B on ImageNet 256x256 for 600 epochs, we suggest using 8x80GB vRAM GPUs:
-```
-bash scripts/c2i/train_GRN_bit_B.sh
-```
-We suggest using 8x80GB GPUs for training.
+All training scripts are located in `scripts/c2i/`. We suggest using 8x80GB GPUs for most models.
 
-Example script for training GRN_ind_L on ImageNet 256x256 for 600 epochs, we suggest using 8x80GB  vRAM GPUs:
-```
-bash scripts/c2i/train_GRN_ind_L.sh
-```
-
-Example script for training GRN_ind_H on ImageNet 256x256 for 600 epochs, we suggest using 16x80GB  vRAM GPUs:
-```
-bash scripts/c2i/train_GRN_ind_H.sh
-```
-
-Example script for training GRN_ind_G on ImageNet 256x256 for 600 epochs, we suggest using 32x80GB  vRAM GPUs:
-```
-bash scripts/c2i/train_GRN_ind_G.sh
-```
-
-
+| Model | Training Script | GPUs Required |
+|-------|:-------------:|:-------------:|
+| GRN_ind_B | `bash scripts/c2i/train_GRN_ind_B.sh` | 8x80GB |
+| GRN_bit_B | `bash scripts/c2i/train_GRN_bit_B.sh` | 8x80GB |
+| GRN_ind_L | `bash scripts/c2i/train_GRN_ind_L.sh` | 8x80GB |
+| GRN_ind_H | `bash scripts/c2i/train_GRN_ind_H.sh` | 16x80GB |
+| GRN_ind_G | `bash scripts/c2i/train_GRN_ind_G.sh` | 32x80GB |
 
 ### Evaluation
 
 PyTorch pre-trained models are available [here]().
 
-Evaluate pre-trained GRN-ind-B, we suggest using 8x80GB vRAM GPUs:
-```
-bash scripts/c2i/eval_GRN_ind_B.sh
-```
+All evaluation scripts are located in `scripts/c2i/`. We suggest using 8x80GB vRAM GPUs.
 
-Evaluate pre-trained GRN-bit-B, we suggest using 8x80GB vRAM GPUs:
-```
-bash scripts/c2i/eval_GRN_bit_B.sh
-```
+| Model | Evaluation Script |
+|-------|:--------------:|
+| GRN_ind_B | `bash scripts/c2i/eval_GRN_ind_B.sh` |
+| GRN_bit_B | `bash scripts/c2i/eval_GRN_bit_B.sh` |
+| GRN_ind_L | `bash scripts/c2i/eval_GRN_ind_L.sh` |
+| GRN_ind_H | `bash scripts/c2i/eval_GRN_ind_H.sh` |
+| GRN_ind_G | `bash scripts/c2i/eval_GRN_ind_G.sh` |
 
-Evaluate pre-trained GRN-ind-L, we suggest using 8x80GB vRAM GPUs:
-```
-bash scripts/c2i/eval_GRN_ind_L.sh
-```
+We use [torch-fidelity](https://github.com/LTH14/torch-fidelity) to evaluate FID and IS against a reference image folder or statistics. We use the JiT's pre-computed reference stats under `grn/utils_c2i/fid_stats`.
 
-Evaluate pre-trained GRN-ind-H, we suggest using 8x80GB vRAM GPUs:
-```
-bash scripts/c2i/eval_GRN_ind_H.sh
-```
+---
 
-Evaluate pre-trained GRN-ind-G, we suggest using 8x80GB vRAM GPUs:
-```
-bash scripts/c2i/eval_GRN_ind_G.sh
-```
+## 🤗 Acknowledgements
 
-We use [```torch-fidelity```](https://github.com/LTH14/torch-fidelity)
-to evaluate FID and IS against a reference image folder or statistics. We use the JiT's pre-computed reference stats under ```grn/utils_c2i/fid_stats```.
+- Thanks to [JiT](https://github.com/LTH14/JiT), [Infinity](https://github.com/FoundationVision/Infinity) and [InfinityStar](https://github.com/FoundationVision/InfinityStar) for their wonderful work and codebase!
+
+---
+
+## 📝 Citation
+
+If you find our work useful, please consider citing:
+
+```bibtex
+@article{han2026GRN,
+  title={Generative Refinement Networks for Visual Synthesis},
+  author={Han, Jian and Liu, Jinlan and Wang, Jiahuan and Peng, Bingyue and Yuan, Zehuan},
+  journal={arXiv preprint arXiv:xxxx},
+  year={2026}
+}
+```
