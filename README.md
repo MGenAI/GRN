@@ -19,6 +19,7 @@ This is the official implementation of the paper **Generative Refinement Network
   - [Dataset](#dataset)
   - [Training](#training)
   - [Evaluation](#evaluation)
+- [📧 Contact](#-contact)
 - [🤗 Acknowledgements](#-acknowledgements)
 - [📝 Citation](#-citation)
 
@@ -130,6 +131,14 @@ All evaluation scripts are located in `scripts/c2i/`. We suggest using 8x80GB vR
 | GRN_ind_G | `bash scripts/c2i/eval_GRN_ind_G.sh` |
 
 We use [torch-fidelity](https://github.com/LTH14/torch-fidelity) to evaluate FID and IS against a reference image folder or statistics. We use the JiT's pre-computed reference stats under `grn/utils_c2i/fid_stats`.
+
+---
+
+## 📧 Contact
+
+If you are interested in scaling GRN for image generation / image editing / video generation / video editing / unified model directions, please feel free to reach out!
+
+**📧 Email:** [hanjian.thu123@bytedance.com](mailto:hanjian.thu123@bytedance.com)
 
 ---
 
