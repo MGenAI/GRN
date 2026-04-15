@@ -1,6 +1,6 @@
 # GRN: Generative Refinement Networks
 
-[![arXiv](https://img.shields.io/badge/arXiv%20paper-xxxx-b31b1b.svg)](https://arxiv.org/abs/xxxx)
+[![arXiv](https://img.shields.io/badge/arXiv%20paper-xxxx-b31b1b.svg)](https://arxiv.org/abs/2604.13030)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1+-red.svg)](https://pytorch.org/)
@@ -139,10 +139,13 @@ We use [torch-fidelity](https://github.com/LTH14/torch-fidelity) to evaluate FID
 If you find our work useful, please consider citing:
 
 ```bibtex
-@article{han2026GRN,
-  title={Generative Refinement Networks for Visual Synthesis},
-  author={Han, Jian and Liu, Jinlan and Wang, Jiahuan and Peng, Bingyue and Yuan, Zehuan},
-  journal={arXiv preprint arXiv:xxxx},
-  year={2026}
+@misc{han2026grn,
+      title={Generative Refinement Networks for Visual Synthesis}, 
+      author={Jian Han and Jinlai Liu and Jiahuan Wang and Bingyue Peng and Zehuan Yuan},
+      year={2026},
+      eprint={2604.13030},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2604.13030}, 
 }
 ```
