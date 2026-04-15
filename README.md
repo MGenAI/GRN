@@ -54,6 +54,11 @@ Starting from a random token map, GRN randomly selects more predictions at each 
   <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
 </figure>
 
+<figure align="center">
+  <figcaption><em>Text-to-Video Examples</em></figcaption>
+  <video src="https://github.com/user-attachments/assets/8ce16018-0f86-4dfc-b51b-69075e8d0f15" width="100%" controls autoplay loop></video>
+</figure>
+
 ---
 
 ## 📑 Open-Source Plan
