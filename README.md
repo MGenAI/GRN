@@ -36,7 +36,7 @@ We introduce **Generative Refinement Networks (GRN)**, a new visual synthesis pa
 GRN achieves state-of-the-art results on ImageNet reconstruction and class-conditional generation, and scales effectively to text-to-image and text-to-video tasks.
 
 <figure align="center">
-  <figcaption><em>Generative Refinement Framework</em></figcaption>
+  <figcaption><strong><em>Generative Refinement Framework</em></strong></figcaption>
   <img src="demo/framework.jpg" width="100%" alt="Framework">
 </figure>
 
@@ -45,17 +45,17 @@ Starting from a random token map, GRN randomly selects more predictions at each 
 </p>
 
 <figure align="center">
-  <figcaption><em>Class-to-Image Examples</em></figcaption>
+  <figcaption><strong><em>Class-to-Image Examples</em></strong></figcaption>
   <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
 </figure>
 
 <figure align="center">
-  <figcaption><em>Text-to-Image Examples</em></figcaption>
+  <figcaption><strong><em>Text-to-Image Examples</em></strong></figcaption>
   <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
 </figure>
 
 <figure align="center">
-  <figcaption><em>Text-to-Video Examples</em></figcaption>
+  <figcaption><strong><em>Text-to-Video Examples</em></strong></figcaption>
   <video src="https://github.com/user-attachments/assets/8ce16018-0f86-4dfc-b51b-69075e8d0f15" width="100%" controls autoplay muted loop playsinline></video>
 </figure>
 
