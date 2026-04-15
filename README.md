@@ -1,7 +1,7 @@
 # GRN: Generative Refinement Networks
 
-[![arXiv](https://img.shields.io/badge/arXiv%20paper-xxxx-b31b1b.svg)](https://arxiv.org/abs/2604.13030)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![arXiv](https://img.shields.io/badge/arXiv%20paper-2604.13030-b31b1b.svg)](https://arxiv.org/abs/2604.13030)
+[![License](https://img.shields.io/badge/License-MIT%202.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1+-red.svg)](https://pytorch.org/)
 [![GitHub stars](https://img.shields.io/github/stars/MGenAI/GRN?style=social)](https://github.com/MGenAI/GRN)
