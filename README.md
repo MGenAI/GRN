@@ -14,7 +14,8 @@ This is the official implementation of the paper **Generative Refinement Network
 ## 📋 Table of Contents
 
 - [🌟 Introduction](#-introduction)
-- [📑 Open-Source Plan](#-open-source-plan)
+- [� Demo](#-demo)
+- [� Open-Source Plan](#-open-source-plan)
 - [🛠️ Installation](#️-installation)
 - [🖼️ Class-to-Image](#️-class-to-image)
   - [Dataset](#dataset)
@@ -37,6 +38,18 @@ We introduce **Generative Refinement Networks (GRN)**, a new visual synthesis pa
 
 GRN achieves state-of-the-art results on ImageNet reconstruction and class-conditional generation, and scales effectively to text-to-image and text-to-video tasks.
 
+---
+
+## 🚀 Demo
+
+Try our interactive Text-to-Image demo on 🤗 Hugging Face Space:
+
+**[GRN T2I Demo](https://huggingface.co/spaces/hanjian/GRN)**
+
+Experience the power of Generative Refinement Networks firsthand by generating images from text prompts directly in your browser!
+
+---
+
 <figure align="center">
   <figcaption><strong><em>Generative Refinement Framework</em></strong></figcaption>
   <img src="demo/framework.jpg" width="100%" alt="Framework">
@@ -56,10 +69,6 @@ Starting from a random token map, GRN randomly selects more predictions at each 
   <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
 </figure>
 
-<p align="center">
-  🚀 Try our interactive Text-to-Image demo on <a href="https://huggingface.co/spaces/hanjian/GRN" target="_blank">🤗 Hugging Face Space</a>!
-</p>
-
 <figure align="center">
   <figcaption><strong><em>Text-to-Video Examples</em></strong></figcaption>
   <video src="https://github.com/user-attachments/assets/8ce16018-0f86-4dfc-b51b-69075e8d0f15" width="100%" controls autoplay muted loop playsinline></video>
@@ -67,7 +76,7 @@ Starting from a random token map, GRN randomly selects more predictions at each 
 
 ---
 
-## 📑 Open-Source Plan
+##  Open-Source Plan
 
 GRN adopts a minimalist and self-contained design. This implementation is in PyTorch + GPU.
 
