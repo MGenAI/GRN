@@ -2,10 +2,9 @@ import torch
 from grn_pipeline import GRNPipeline
 
 # 加载 pipeline - 像 DiffusionPipeline 一样简单！
+# 从 Hugging Face Hub 下载权重
 pipe = GRNPipeline.from_pretrained(
-    model_path='./weights/model.pth',
-    vae_path='./weights/hbq_tokenizer.ckpt',
-    text_encoder_ckpt='./weights/umt5-xxl',
+    hf_repo_id="bytedance-research/grn",
     torch_dtype=torch.bfloat16
 )
 
