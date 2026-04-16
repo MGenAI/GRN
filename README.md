@@ -27,6 +27,16 @@ This is the official implementation of the paper **Generative Refinement Network
 
 ---
 
+## 🚀 Demo
+
+Try our interactive Text-to-Image demo on 🤗 Hugging Face Space:
+
+**[GRN T2I Demo](https://huggingface.co/spaces/hanjian/GRN)**
+
+Experience the power of Generative Refinement Networks firsthand by generating images from text prompts directly in your browser!
+
+---
+
 ## 🌟 Introduction
 
 Diffusion models dominate visual generation but they allocate uniform computational effort to samples with varying levels of complexity. Autoregressive (AR) models are complexity-aware, as evidenced by their variable likelihoods, but suffer from lossy tokenization and error accumulation.
@@ -37,16 +47,6 @@ We introduce **Generative Refinement Networks (GRN)**, a new visual synthesis pa
 - **Entropy-guided sampling** for complexity-aware, adaptive-step generation
 
 GRN achieves state-of-the-art results on ImageNet reconstruction and class-conditional generation, and scales effectively to text-to-image and text-to-video tasks.
-
----
-
-## 🚀 Demo
-
-Try our interactive Text-to-Image demo on 🤗 Hugging Face Space:
-
-**[GRN T2I Demo](https://huggingface.co/spaces/hanjian/GRN)**
-
-Experience the power of Generative Refinement Networks firsthand by generating images from text prompts directly in your browser!
 
 ---
 
