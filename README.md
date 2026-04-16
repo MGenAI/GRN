@@ -5,6 +5,7 @@
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1+-red.svg)](https://pytorch.org/)
 [![GitHub stars](https://img.shields.io/github/stars/MGenAI/GRN?style=social)](https://github.com/MGenAI/GRN)
+[![Hugging Face Space](https://img.shields.io/badge/🤗%20Hugging%20Face-Space-yellow.svg)](https://huggingface.co/spaces/hanjian/GRN)
 
 This is the official implementation of the paper **Generative Refinement Networks for Visual Synthesis**. Neither diffusion nor autoregressive — GRN is a third way. 🧠 Refines globally like an artist. ⚡ Generates adaptively by complexity. 🏆 New SOTA across image & video. The visual generation paradigm just got rewritten.
 
@@ -54,6 +55,10 @@ Starting from a random token map, GRN randomly selects more predictions at each 
   <figcaption><strong><em>Text-to-Image Examples</em></strong></figcaption>
   <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
 </figure>
+
+<p align="center">
+  🚀 Try our interactive Text-to-Image demo on <a href="https://huggingface.co/spaces/hanjian/GRN" target="_blank">🤗 Hugging Face Space</a>!
+</p>
 
 <figure align="center">
   <figcaption><strong><em>Text-to-Video Examples</em></strong></figcaption>
