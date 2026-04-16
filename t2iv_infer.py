@@ -24,9 +24,9 @@ def get_default_config():
     # Core hyperparams
     parser.add_argument('--pn', type=str, default='1M', help='the total number of pixels per generated frame')
     parser.add_argument('--video_frames', type=int, default=209, help='Number of video frames')
-    parser.add_argument('--model_path', type=str, default='/mnt/bn/foundation-ads/hanjian.thu123/GRN/weights/9a8a674133266e996d8d56e784a10d67.pth', help='Path to model checkpoint')
-    parser.add_argument('--vae_path', type=str, default='/dev/shm/vae_e04839d1c0db284ae34b40811fc20ab4.ckpt', help='Path to VAE checkpoint')
-    parser.add_argument('--text_encoder_ckpt', type=str, default='/dev/shm/umt5-xxl', help='Path to text encoder checkpoint')
+    parser.add_argument('--model_path', type=str, default='/tmp/weights/9a8a674133266e996d8d56e784a10d67.pth', help='Path to model checkpoint')
+    parser.add_argument('--vae_path', type=str, default='/tmp/weights/HBQ_tokenizer_64dim_M4.ckpt', help='Path to VAE checkpoint')
+    parser.add_argument('--text_encoder_ckpt', type=str, default='/tmp/weights/umt5-xxl', help='Path to text encoder checkpoint')
     parser.add_argument('--test_training_prompt', type=str, default='1', help='Prompt type for inference (1, 4, 5, 6, vbench, geneval)')
     parser.add_argument('--cfg', type=int, default=1)
 
