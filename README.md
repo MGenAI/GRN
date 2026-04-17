@@ -1,7 +1,8 @@
 # GRN: Generative Refinement Networks
 
 [![arXiv](https://img.shields.io/badge/arXiv%20paper-2604.13030-b31b1b.svg)](https://arxiv.org/abs/2604.13030)
-[![Hugging Face Space](https://img.shields.io/badge/🤗%20Hugging%20Face-Space-yellow.svg)](https://huggingface.co/spaces/hanjian/GRN)
+[![Models](https://img.shields.io/badge/🤗%20Hugging%20Face-Models-blue.svg)](https://huggingface.co/bytedance-research/GRN)
+[![Demo](https://img.shields.io/badge/🤗%20Hugging%20Face-Space-yellow.svg)](https://huggingface.co/spaces/hanjian/GRN)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/MGenAI/GRN?style=social)](https://github.com/MGenAI/GRN)
 
@@ -12,8 +13,8 @@ This is the official implementation of the paper **Generative Refinement Network
 ## 📋 Table of Contents
 
 - [🌟 Introduction](#-introduction)
-- [� Demo](#-demo)
-- [� Open-Source Plan](#-open-source-plan)
+- [🚀 Demo](#-demo)
+- [🍉 Open-Source Plan](#-open-source-plan)
 - [🛠️ Installation](#️-installation)
 - [🖼️ Class-to-Image](#️-class-to-image)
   - [Dataset](#dataset)
@@ -74,14 +75,14 @@ Starting from a random token map, GRN randomly selects more predictions at each 
 
 ---
 
-##  Open-Source Plan
+## 🍉 Open-Source Plan
 
 GRN adopts a minimalist and self-contained design. This implementation is in PyTorch + GPU.
 
 | Task | Checkpoints | Inference Code | Training Code |
 |------|:-----------:|:--------------:|:-------------:|
 | T2V  |     ⬜      |       ⬜        |      ✅       |
-| T2I  |     ⬜      |       ⬜        |      ✅       |
+| T2I  |     ✅      |       ⬜        |      ✅       |
 | C2I  |     ⬜      |       ✅        |      ✅       |
 
 ---
