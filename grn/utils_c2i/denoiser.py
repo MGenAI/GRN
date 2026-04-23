@@ -64,15 +64,27 @@ class Denoiser(nn.Module):
         x_pred = self.net(z, t.flatten(), labels_dropped) # x_pred shape: [B, classes, d, h, w]
         # ce loss
         gt_labels = x # [B,d,h,w]
+        pred_labels = torch.argmax(x_pred, 1)# [B,d,h,w]
+        pred_acc = pred_labels == gt_labels
+        t_bin2acc, t_bin2freq = [0. for _ in range(10)], [0. for _ in range(10)]
+        pred_acc_1d = pred_acc.float().mean([1,2,3]).reshape(-1)
+        t_1d = t.reshape(-1)
+        for ind in range(len(pred_acc_1d)):
+            t_round = int(t_1d[ind] / 0.1)
+            t_round = min(t_round, 9)
+            t_bin2acc[t_round] += pred_acc_1d[ind]
+            t_bin2freq[t_round] += 1
+        t_bin2acc = torch.tensor(t_bin2acc, device=x_pred.device)
+        t_bin2freq = torch.tensor(t_bin2freq, device=x_pred.device)
         with torch.amp.autocast('cuda', dtype=torch.float32):
             loss = torch.nn.functional.cross_entropy(x_pred, gt_labels)
-        return loss
+        return loss, t_bin2acc, t_bin2freq
 
     @torch.no_grad()
     def generate(self, labels):
         device = labels.device
         bsz = labels.size(0)
-        if self.args.method == ['GRN_ind']:
+        if self.args.method in ['GRN_ind']:
             classes = 2 ** self.args.hbq_round
             rand_labels = torch.randint(0, classes, (bsz, self.net.in_channels//classes, self.img_size, self.img_size), device=device)
             z = rand_labels
@@ -80,6 +92,8 @@ class Denoiser(nn.Module):
             classes = 2
             rand_labels = torch.randint(0, classes, (bsz, self.net.in_channels//classes, self.img_size, self.img_size), device=device)
             z = rand_labels
+        else:
+            raise ValueError(f'{self.args.method=} is not supported')
         timesteps = torch.linspace(0.0, 1.0, self.steps+1, device=device).view(-1, *([1] * z.ndim)).expand(-1, bsz, -1, -1, -1)
 
         for i in range(self.steps): # self.steps=50

@@ -203,7 +203,8 @@ class SelfAttention(nn.Module):
         else:
             if attn_bias_or_two_vector is None:
                 # fa2, flash_attn_func input/output should be (batch_size, seqlen, nheads, headdim)
-                from flash_attn import flash_attn_func, flash_attn_varlen_func
+                # from flash_attn import flash_attn_func, flash_attn_varlen_func
+                from flash_attn.cute import flash_attn_varlen_func
                 attn_output = flash_attn_varlen_func(
                     q = query_states.permute([0,2,1,3]).to(torch.bfloat16).squeeze(0),
                     k = key_states.permute([0,2,1,3]).to(torch.bfloat16).squeeze(0),
@@ -214,7 +215,7 @@ class SelfAttention(nn.Module):
                     max_seqlen_k = max(cu_seqlens_k),
                     softmax_scale=scale,
                 )
-                attn_output = attn_output.reshape(B, L, C)
+                attn_output = attn_output[0].reshape(B, L, C)
                 # attn_output = flash_attn_func(query_states.permute([0,2,1,3]).to(torch.bfloat16), key_states.permute([0,2,1,3]).to(torch.bfloat16), value_states.permute([0,2,1,3]).to(torch.bfloat16), softmax_scale=scale)
             else:
                 # slow attn

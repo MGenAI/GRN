@@ -48,7 +48,12 @@ def train_one_epoch(model, model_without_ddp, data_loader, optimizer, device, ep
                 x = raw_feature2bit_label(raw_features, hbq_round=args.hbq_round)
 
         with torch.amp.autocast('cuda', dtype=torch.bfloat16):
-            loss = model(x, labels)
+            loss, t_bin2acc, t_bin2freq = model(x, labels)
+        
+        import torch.distributed as dist
+        dist.all_reduce(t_bin2acc)
+        dist.all_reduce(t_bin2freq)
+        t_bin2acc = t_bin2acc / (t_bin2freq + 1e-8) * 100.
 
         loss_value = loss.item()
         if not math.isfinite(loss_value):
@@ -83,6 +88,12 @@ def train_one_epoch(model, model_without_ddp, data_loader, optimizer, device, ep
                         { "train loss": loss_value_reduce, "lr": lr, "grad_norm_t": grad_norm_reduce},
                         step=epoch_1000x
                     )
+                    visual_dict = {}
+                    for t_round in range(10):
+                        if t_bin2freq[t_round] > 0:
+                            visual_dict.update({f"accuracy/signal_{t_round*0.1:.1f}_{(t_round+1)*0.1:.1f}": t_bin2acc[t_round].item()})
+                            visual_dict.update({f"frequency/signal_{t_round*0.1:.1f}_{(t_round+1)*0.1:.1f}": t_bin2freq[t_round].item()})
+                    wandb_utils.log(visual_dict, step=epoch_1000x)
 
 
 def evaluate(model_without_ddp, args, epoch, batch_size=64, log_writer=None, vae=None):

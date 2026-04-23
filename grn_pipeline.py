@@ -119,6 +119,7 @@ class GRNPipeline:
                 self.use_refined_prompt = None
                 self.use_prompt_engineering = 0
                 self.quality_prompt = ''
+                self.meta = ''
                 self.train_split_file = './data/infinity_toy_data/splits/1.000_000002500.jsonl'
                 self.n_sampes = 1
                 self.repeat_times = 30
