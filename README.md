@@ -1,9 +1,9 @@
 # GRN: Generative Refinement Networks
 
 [![arXiv](https://img.shields.io/badge/arXiv%20paper-2604.13030-b31b1b.svg)](https://arxiv.org/abs/2604.13030)
+[![Models](https://img.shields.io/badge/🤗%20Hugging%20Face-Models-blue.svg)](https://huggingface.co/bytedance-research/GRN)
+[![Demo](https://img.shields.io/badge/🤗%20Hugging%20Face-Demo-yellow.svg)](https://huggingface.co/spaces/hanjian/GRN)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1+-red.svg)](https://pytorch.org/)
 [![GitHub stars](https://img.shields.io/github/stars/MGenAI/GRN?style=social)](https://github.com/MGenAI/GRN)
 
 This is the official implementation of the paper **Generative Refinement Networks for Visual Synthesis**. Neither diffusion nor autoregressive — GRN is a third way. 🧠 Refines globally like an artist. ⚡ Generates adaptively by complexity. 🏆 New SOTA across image & video. The visual generation paradigm just got rewritten.
@@ -13,7 +13,8 @@ This is the official implementation of the paper **Generative Refinement Network
 ## 📋 Table of Contents
 
 - [🌟 Introduction](#-introduction)
-- [📑 Open-Source Plan](#-open-source-plan)
+- [🚀 Demo](#-demo)
+- [🍉 Open-Source Plan](#-open-source-plan)
 - [🛠️ Installation](#️-installation)
 - [🖼️ Class-to-Image](#️-class-to-image)
   - [Dataset](#dataset)
@@ -22,6 +23,16 @@ This is the official implementation of the paper **Generative Refinement Network
 - [📧 Contact](#-contact)
 - [🤗 Acknowledgements](#-acknowledgements)
 - [📝 Citation](#-citation)
+
+---
+
+## 🚀 Demo
+
+Try our interactive Text-to-Image demo on 🤗 Hugging Face Space:
+
+**[GRN T2I Demo](https://huggingface.co/spaces/hanjian/GRN)**
+
+Experience the power of Generative Refinement Networks firsthand by generating images from text prompts directly in your browser!
 
 ---
 
@@ -35,6 +46,8 @@ We introduce **Generative Refinement Networks (GRN)**, a new visual synthesis pa
 - **Entropy-guided sampling** for complexity-aware, adaptive-step generation
 
 GRN achieves state-of-the-art results on ImageNet reconstruction and class-conditional generation, and scales effectively to text-to-image and text-to-video tasks.
+
+---
 
 <figure align="center">
   <figcaption><strong><em>Generative Refinement Framework</em></strong></figcaption>
@@ -62,14 +75,14 @@ Starting from a random token map, GRN randomly selects more predictions at each 
 
 ---
 
-## 📑 Open-Source Plan
+## 🍉 Open-Source Plan
 
 GRN adopts a minimalist and self-contained design. This implementation is in PyTorch + GPU.
 
 | Task | Checkpoints | Inference Code | Training Code |
 |------|:-----------:|:--------------:|:-------------:|
 | T2V  |     ⬜      |       ⬜        |      ✅       |
-| T2I  |     ⬜      |       ⬜        |      ✅       |
+| T2I  |     ✅      |       ⬜        |      ✅       |
 | C2I  |     ⬜      |       ✅        |      ✅       |
 
 ---

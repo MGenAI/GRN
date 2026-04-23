@@ -13,10 +13,9 @@ pipe = None
 def load_pipeline():
     global pipe
     print("Loading GRN pipeline...")
+    # 从 Hugging Face Hub 下载权重
     pipe = GRNPipeline.from_pretrained(
-        model_path='./weights/model.pth',
-        vae_path='./weights/hbq_tokenizer.ckpt',
-        text_encoder_ckpt='./weights/umt5-xxl',
+        hf_repo_id="bytedance-research/grn",
         device='cuda' if torch.cuda.is_available() else 'cpu'
     )
     print("Pipeline loaded successfully!")
