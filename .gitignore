@@ -23,3 +23,4 @@ checkpoints_vision
 tmp_videos
 weights
 .DS_Store
+local

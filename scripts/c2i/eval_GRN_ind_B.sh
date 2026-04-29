@@ -3,7 +3,7 @@ batch_size=64
 exp_name=GRN_ind_B
 CKPT_DIR=${cache_dir}/checkpoints/${exp_name}
 generation_dir=${cache_dir}/generation/${exp_name}
-CKPT_FILE='/tmp/GRN_ind_B/checkpoint-tmp_599.pth'
+CKPT_FILE='/weights/GRN_ind_B_ep599.pth'
 data_path=./data/imagenet/imagenet_train_val
 vae_path=./weights/HBQ_image_tokenizer_16dim_M4.ckpt
 

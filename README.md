@@ -87,6 +87,15 @@ GRN adopts a minimalist and self-contained design. This implementation is in PyT
 
 ---
 
+## Model Zoo
+
+| Task | Checkpoints |
+|------|:-----------:|
+| Tokenizer  |     [ImageNet tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_image_tokenizer_16dim_M4.ckpt), [Joint I/V Tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_tokenizer_64dim_M4.ckpt)     |
+| C2I  | [GRN_ind_B](https://huggingface.co/bytedance-research/GRN/blob/main/GRN_ind_B_ep599.pth), [GRN_ind_L](TBD), [GRN_ind_H](TBD), [GRN_ind_G](TBD)|
+| T2I  |     [GRN_T2I](https://huggingface.co/bytedance-research/GRN/blob/main/t2i_model_tmp.pth)      |
+| T2V  |     [GRN_T2V](TBD)      |
+
 ## 🛠️ Installation
 
 ### Step 1: Clone the repository
