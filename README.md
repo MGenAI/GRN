@@ -91,10 +91,10 @@ GRN adopts a minimalist and self-contained design. This implementation is in PyT
 
 | Task | Checkpoints |
 |------|:-----------:|
-| Tokenizer  |     ✅[ImageNet tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_image_tokenizer_16dim_M4.ckpt), ✅[Joint I/V Tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_tokenizer_64dim_M4.ckpt)     |
-| GRN_ind_C2I  | ✅[B](https://huggingface.co/bytedance-research/GRN/blob/main/GRN_ind_B_ep599.pth), ⬜[L](TBD), ⬜[H](TBD), ⬜[G](TBD)|
-| GRN_bit_T2I  |     ✅[GRN_T2I](https://huggingface.co/bytedance-research/GRN/blob/main/t2i_model_tmp.pth)      |
-| GRN_bit_T2V  |     ⬜[GRN_T2V](TBD)      |
+| Tokenizer  |     ✅ [ImageNet tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_image_tokenizer_16dim_M4.ckpt), ✅ [Joint I/V Tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_tokenizer_64dim_M4.ckpt)     |
+| GRN_ind_C2I  | ✅ [B](https://huggingface.co/bytedance-research/GRN/blob/main/GRN_ind_B_ep599.pth), ⬜ [L](TBD), ⬜ [H](TBD), ⬜ [G](TBD)|
+| GRN_bit_T2I  |     ✅ [GRN_T2I](https://huggingface.co/bytedance-research/GRN/blob/main/t2i_model_tmp.pth)      |
+| GRN_bit_T2V  |     ⬜ [GRN_T2V](TBD)      |
 
 ## 🛠️ Installation
 
