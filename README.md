@@ -140,7 +140,7 @@ All training scripts are located in `scripts/c2i/`. We suggest using 8x80GB GPUs
 
 ### Evaluation
 
-PyTorch pre-trained models are available [here]().
+PyTorch pre-trained models are available [here](https://huggingface.co/bytedance-research/GRN/tree/main).
 
 All evaluation scripts are located in `scripts/c2i/`. We suggest using 8x80GB vRAM GPUs.
 
