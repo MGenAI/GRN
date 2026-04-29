@@ -37,18 +37,22 @@ class GRNPipeline:
         torch_dtype=torch.bfloat16,
         hf_repo_id=None,
     ):
-        # 从 Hugging Face Hub 下载权重
+        # download weights from Hugging Face Hub
         if hf_repo_id:
             from huggingface_hub import hf_hub_download, snapshot_download
-            print(f"从 Hugging Face Hub 下载权重: {hf_repo_id}")
-            model_path = hf_hub_download(repo_id=hf_repo_id, filename="model.pth")
-            vae_path = hf_hub_download(repo_id=hf_repo_id, filename="hbq_tokenizer.ckpt")
-            text_encoder_ckpt = snapshot_download(repo_id=hf_repo_id, allow_patterns="umt5-xxl/**")
+            print(f"download weights from Hugging Face Hub: {hf_repo_id}")
+            model_path = hf_hub_download(repo_id=hf_repo_id, filename="t2i_model_tmp.pth")
+            vae_path = hf_hub_download(repo_id=hf_repo_id, filename="HBQ_tokenizer_64dim_M4.ckpt")
+            snapshot_path = snapshot_download(repo_id=hf_repo_id, allow_patterns="umt5-xxl/**")
+            text_encoder_ckpt = os.path.join(snapshot_path, "umt5-xxl")
+            print(os.listdir(snapshot_path))
         
         args = cls._get_default_args()
         args.model_path = model_path
         args.vae_path = vae_path
         args.text_encoder_ckpt = text_encoder_ckpt
+        if isinstance(device, str):
+            device = torch.device(device)
         args.other_device = device
 
         # Derived parameters
@@ -63,8 +67,8 @@ class GRNPipeline:
         args.detail_scale_dim = args.vae_latent_dim
 
         # Load models
-        text_tokenizer, text_encoder = load_tokenizer(t5_path=args.text_encoder_ckpt)
-        vae = load_visual_tokenizer(args)
+        text_tokenizer, text_encoder = load_tokenizer(t5_path=args.text_encoder_ckpt, device=device)
+        vae = load_visual_tokenizer(args, device=device)
         model = load_transformer(vae, args)
 
         return cls(model, vae, text_tokenizer, text_encoder, args, device)
@@ -136,6 +140,8 @@ class GRNPipeline:
         return Args()
 
     def to(self, device):
+        if isinstance(device, str):
+            device = torch.device(device)
         self.device = device
         self.args.other_device = device
         if self.model:
@@ -149,6 +155,7 @@ class GRNPipeline:
         prompt,
         negative_prompt='',
         guidance_scale=3.0,
+        temperature=1.0,
         num_inference_steps=50,
         width=512,
         height=512,
@@ -163,6 +170,7 @@ class GRNPipeline:
             self.args.seed = np.random.randint(0, 10000)
         
         self.args.cfg_val = guidance_scale
+        self.args.tau = temperature
         
         # Get dynamic resolution meta
         dynamic_resolution_h_w, h_div_w_templates = get_dynamic_resolution_meta(

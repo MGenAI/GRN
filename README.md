@@ -156,6 +156,33 @@ We use [torch-fidelity](https://github.com/LTH14/torch-fidelity) to evaluate FID
 
 ---
 
+### Text-to-Image
+### Inference
+Your can simple run python3 t2iv_infer_simple.py or using the following code.
+```
+from PIL import Image
+import torch
+from grn_pipeline import GRNPipeline
+
+# load pipeline
+pipeline = GRNPipeline.from_pretrained(hf_repo_id='bytedance-research/GRN', device='cpu')
+pipe = pipe.to('cuda')
+
+# generatie one image
+result = pipe(
+    prompt="A cute cat playing in the garden",
+    guidance_scale=3.0,
+    temperature=1.1,
+    num_inference_steps=50,
+    width=1024,
+    height=1024,
+    content_type='image',
+    seed=42
+)
+image = result.images[0]
+image.save('./generated_image.jpg')
+```
+
 ## 📧 Contact
 
 If you are interested in scaling GRN for image generation / image editing / video generation / video editing / unified model directions, please feel free to reach out!
