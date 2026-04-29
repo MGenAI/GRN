@@ -158,7 +158,7 @@ We use [torch-fidelity](https://github.com/LTH14/torch-fidelity) to evaluate FID
 
 ### Text-to-Image
 ### Inference
-Your can simple run python3 t2iv_infer_simple.py or using the following code.
+Your can simple run `python3 t2iv_infer_simple.py` or using the following code.
 ```
 from PIL import Image
 import torch
