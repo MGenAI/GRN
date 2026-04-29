@@ -15,11 +15,14 @@ This is the official implementation of the paper **Generative Refinement Network
 - [🌟 Introduction](#-introduction)
 - [🚀 Demo](#-demo)
 - [🍉 Open-Source Plan](#-open-source-plan)
-- [🛠️ Installation](#️-installation)
+- [� Model Zoo](#-model-zoo)
+- [�️ Installation](#️-installation)
 - [🖼️ Class-to-Image](#️-class-to-image)
   - [Dataset](#dataset)
   - [Training](#training)
   - [Evaluation](#evaluation)
+- [🎨 Text-to-Image](#-text-to-image)
+  - [Inference](#inference)
 - [📧 Contact](#-contact)
 - [🤗 Acknowledgements](#-acknowledgements)
 - [📝 Citation](#-citation)
@@ -87,14 +90,16 @@ GRN adopts a minimalist and self-contained design. This implementation is in PyT
 
 ---
 
-## Model Zoo
+## 📦 Model Zoo
 
-| Task | Checkpoints |
-|------|:-----------:|
-| Tokenizer  |     ✅ [ImageNet tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_image_tokenizer_16dim_M4.ckpt), ✅ [Joint I/V Tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_tokenizer_64dim_M4.ckpt)     |
-| GRN_ind_C2I  | ✅ [B](https://huggingface.co/bytedance-research/GRN/blob/main/GRN_ind_B_ep599.pth), ⬜ [L](TBD), ⬜ [H](TBD), ⬜ [G](TBD)|
-| GRN_bit_T2I  |     ✅ [GRN_T2I](https://huggingface.co/bytedance-research/GRN/blob/main/t2i_model_tmp.pth)      |
-| GRN_bit_T2V  |     ⬜ [GRN_T2V](TBD)      |
+| Model | Checkpoints |
+|-------|:-----------:|
+| **Tokenizers** | ✅ [ImageNet Tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_image_tokenizer_16dim_M4.ckpt)<br>✅ [Joint Image/Video Tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_tokenizer_64dim_M4.ckpt) |
+| **GRN_ind_C2I** | ✅ [B](https://huggingface.co/bytedance-research/GRN/blob/main/GRN_ind_B_ep599.pth)<br>⬜ L (TBD)<br>⬜ H (TBD)<br>⬜ G (TBD) |
+| **GRN_bit_T2I** | ✅ [GRN_T2I](https://huggingface.co/bytedance-research/GRN/blob/main/t2i_model_tmp.pth) |
+| **GRN_bit_T2V** | ⬜ GRN_T2V (TBD) |
+
+---
 
 ## 🛠️ Installation
 
@@ -156,20 +161,23 @@ We use [torch-fidelity](https://github.com/LTH14/torch-fidelity) to evaluate FID
 
 ---
 
-### Text-to-Image
+## 🎨 Text-to-Image
+
 ### Inference
-Your can simple run `python3 t2iv_infer_simple.py` or using the following code.
-```
+
+You can simply run `python3 t2iv_infer_simple.py` or use the following code:
+
+```python
 from PIL import Image
 import torch
 from grn_pipeline import GRNPipeline
 
-# load pipeline
+# Load pipeline
 pipeline = GRNPipeline.from_pretrained(hf_repo_id='bytedance-research/GRN', device='cpu')
-pipe = pipe.to('cuda')
+pipeline = pipeline.to('cuda')
 
-# generatie one image
-result = pipe(
+# Generate one image
+result = pipeline(
     prompt="A cute cat playing in the garden",
     guidance_scale=3.0,
     temperature=1.1,
