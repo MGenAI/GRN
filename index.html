@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="Generative Refinement Networks for Visual Synthesis">
+  <meta property="og:title" content="Generative Refinement Networks for Visual Synthesis" />
+  <meta property="og:description"
+    content="Neither diffusion nor autoregressive. GRN refines globally and generates adaptively by complexity." />
+  <meta property="og:url" content="https://github.com/MGenAI/GRN" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static2/images/motivation.png" />
+  <meta property="og:image:width" content="2412" />
+  <meta property="og:image:height" content="1394" />
+
+
+  <meta name="twitter:title" content="GRN">
+  <meta name="twitter:description"
+    content="Generative Refinement Networks for Visual Synthesis">
+  <meta name="twitter:image" content="static2/images/motivation.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="Generative Refinement Networks, Visual Synthesis, Text-to-Image, Text-to-Video">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>GRN</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body style="background: #f5f5f6; color: #2f3440;">
+  
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container" style="max-width: 1100px !important; margin: 0 auto;">
+        <!-- <div class="container"> -->
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title" style="font-size: 2.2rem; line-height: 1.4; letter-spacing: 0.02em; font-weight: 500;">
+              <span style="background: linear-gradient(135deg, #78a7d6 0%, #97bbe2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">GRN: G</span>enerative <span style="background: linear-gradient(135deg, #78a7d6 0%, #97bbe2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">R</span>efinement <span style="background: linear-gradient(135deg, #78a7d6 0%, #97bbe2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">N</span>etworks for Visual Synthesis
+            </h1>
+
+            <div class="is-size-5 publication-authors" style="margin-top: 1.25rem; margin-bottom: 1.25rem;">
+              <div style="font-size: 1.15rem; font-weight: 500; line-height: 1.9; color: #48505a; margin-bottom: 0.35rem;">
+                <span style="color: #6f9fd1; text-decoration: underline;">Jian Han</span>,
+                <span style="color: #6f9fd1; text-decoration: underline;">Jinlai Liu</span>,
+                <span style="color: #6f9fd1; text-decoration: underline;">Jiahuan Wang</span>,
+                <span style="color: #6f9fd1; text-decoration: underline;">Bingyue Peng</span>,
+                <span style="color: #6f9fd1; text-decoration: underline;">Zehuan Yuan</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 0.35rem; margin-bottom: 1.6rem;">
+              <img src="assets/ByteDance_logo_English.svg" alt="ByteDance Logo" style="height: 44px; width: auto;" />
+            </div>
+
+            <div class="buttons is-centered" style="gap: 1.1rem; row-gap: 1rem; margin-top: 0.5rem;">
+              <a href="https://arxiv.org/abs/2604.13030" target="_blank"
+                class="external-link button is-normal is-rounded"
+                style="background: #6f8fb6; border: 1px solid #5f7da3; color: white; padding: 0.78rem 1.55rem; font-weight: 500; transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(111, 143, 182, 0.28);"
+                onmouseover="this.style.background='#627fa3'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 18px rgba(111, 143, 182, 0.36)';"
+                onmouseout="this.style.background='#6f8fb6'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(111, 143, 182, 0.28)';">
+                <span class="icon">
+                  <i class="fas fa-file-alt"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+              <a href="https://github.com/MGenAI/GRN" target="_blank"
+                class="external-link button is-normal is-rounded"
+                style="background: #6f8fb6; border: 1px solid #5f7da3; color: white; padding: 0.78rem 1.55rem; font-weight: 500; transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(111, 143, 182, 0.28);"
+                onmouseover="this.style.background='#627fa3'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 18px rgba(111, 143, 182, 0.36)';"
+                onmouseout="this.style.background='#6f8fb6'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(111, 143, 182, 0.28)';">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>GitHub</span>
+              </a>
+              <a href="https://huggingface.co/spaces/hanjian/GRN" target="_blank"
+                class="external-link button is-normal is-rounded"
+                style="background: #6f8fb6; border: 1px solid #5f7da3; color: white; padding: 0.78rem 1.55rem; font-weight: 500; transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(111, 143, 182, 0.28);"
+                onmouseover="this.style.background='#627fa3'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 18px rgba(111, 143, 182, 0.36)';"
+                onmouseout="this.style.background='#6f8fb6'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(111, 143, 182, 0.28)';">
+                <span class="icon">
+                  <i class="fas fa-play-circle"></i>
+                </span>
+                <span>T2I Demo</span>
+              </a>
+              <a href="https://huggingface.co/bytedance-research/GRN" target="_blank"
+                class="external-link button is-normal is-rounded"
+                style="background: #6f8fb6; border: 1px solid #5f7da3; color: white; padding: 0.78rem 1.55rem; font-weight: 500; transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(111, 143, 182, 0.28);"
+                onmouseover="this.style.background='#627fa3'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 18px rgba(111, 143, 182, 0.36)';"
+                onmouseout="this.style.background='#6f8fb6'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(111, 143, 182, 0.28)';">
+                <span class="icon">
+                  <i class="fas fa-book"></i>
+                </span>
+                <span>Huggingface</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- motivation -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container" style="max-width: 1100px !important; margin: 0 auto;">
+        <!-- Overview Section -->
+        <div style="text-align: center; margin: 0 0 2.5rem 0;">
+          <h2 style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Introduction</h2>
+          <div style="width: 80px; height: 4px; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); border-radius: 2px; margin: 0 auto;"></div>
+        </div>
+        
+        <div style="background: #ffffff; border-radius: 12px; padding: 2rem 2.25rem; box-shadow: 0 2px 12px rgba(95, 104, 118, 0.08); margin-bottom: 2rem; border: 1px solid #e2e5ea;">
+          <p style="font-size: 1.1rem; line-height: 1.75; color: #2f3440; margin: 0 0 1.75rem 0; text-align: left;">
+            <strong>GRN</strong> is a new visual synthesis paradigm that is neither diffusion nor autoregressive. It allocates computation adaptively by sample complexity and progressively refines outputs globally.
+          </p>
+          <ul style="margin: 0; padding-left: 1.6rem; color: #2f3440;">
+            <li style="font-size: 1.02rem; line-height: 1.7; margin-bottom: 0.6rem;">
+              <span style="margin-right: 0.35rem;">🎬</span><strong>Near-Lossless Tokenization:</strong> Hierarchical Binary Quantization (HBQ) preserves visual information better than lossy tokenization pipelines.
+            </li>
+            <li style="font-size: 1.02rem; line-height: 1.7; margin-bottom: 0.6rem;">
+              <span style="margin-right: 0.35rem;">⚙️</span><strong>Global Refinement:</strong> GRN refines all tokens progressively across the full canvas, like a human artist polishing the full image.
+            </li>
+            <li style="font-size: 1.02rem; line-height: 1.7; margin-bottom: 0.6rem;">
+              <span style="margin-right: 0.35rem;">📊</span><strong>Adaptive-Step Generation:</strong> Entropy-guided sampling dynamically allocates generation steps according to content complexity.
+            </li>
+            <li style="font-size: 1.02rem; line-height: 1.7; margin-bottom: 0;">
+              <span style="margin-right: 0.35rem;">🏆</span><strong>Strong Results:</strong> GRN achieves strong reconstruction and generation performance, and scales effectively to text-to-image and text-to-video tasks.
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Demo Video Title -->
+        <div style="text-align: center; margin: 2.5rem 0 1.5rem 0;">
+          <h2 style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Demo</h2>
+          <div style="width: 80px; height: 4px; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); border-radius: 2px; margin: 0 auto;"></div>
+        </div>
+        
+          <div style="display: flex; justify-content: center; align-items: center;">
+            <!-- <video poster="" id="video3" controls loop height="100%">\
+              <source src="assets/alive_webpage_crf18.mp4" type="video/mp4">
+            </video> -->
+            <iframe width="1280" height="720" src="https://www.youtube.com/embed/VtBKDvsGTDQ" title="Temporary demo video placeholder" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="max-width: 100%;"></iframe>
+          </div>
+        
+        <!-- Generative Refinement Framework Title -->
+        <div style="text-align: center; margin: 3rem 0 2rem 0;">
+          <h2 style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Generative Refinement Framework</h2>
+          <div style="width: 80px; height: 4px; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); border-radius: 2px; margin: 0 auto;"></div>
+        </div>
+        
+        <!-- Generative Refinement Framework -->
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f2f3f5 100%); border-radius: 20px; padding: 2.5rem 3rem; box-shadow: 0 8px 32px rgba(120, 167, 214, 0.22); margin-bottom: 2rem; border: 1px solid rgba(120, 167, 214, 0.14);">
+          <h3 style="font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.25rem;">How GRN Refines</h3>
+          <p style="font-size: 1.05rem; line-height: 1.9; color: #353b45; text-align: justify; margin: 0 0 1.5rem 0;">
+            GRN starts from a random token map, then iteratively fills and refines tokens globally. Compared with fixed-compute generation, this process adapts computation to content complexity and improves synthesis quality progressively.
+          </p>
+
+          <div style="display: flex; justify-content: center; align-items: center; margin: 1.5rem 0 2rem 0;">
+            <img src="assets/grn_framework.jpg" alt="GRN Refinement Framework" style="width: 100%; max-width: 980px; border-radius: 10px;" />
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 2rem 0;">
+            <div style="background: #ffffff; border-radius: 12px; padding: 1.25rem; border-left: 4px solid #78a7d6; box-shadow: 0 2px 12px rgba(120, 167, 214, 0.14);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: #78a7d6; margin: 0 0 0.5rem 0;">1. Random Token Map</h4>
+              <p style="font-size: 0.95rem; line-height: 1.6; color: #474d57; margin: 0;">Generation begins from an initially random token layout.</p>
+            </div>
+            <div style="background: #ffffff; border-radius: 12px; padding: 1.25rem; border-left: 4px solid #97bbe2; box-shadow: 0 2px 12px rgba(151, 187, 226, 0.14);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: #97bbe2; margin: 0 0 0.5rem 0;">2. Select Predictions</h4>
+              <p style="font-size: 0.95rem; line-height: 1.6; color: #474d57; margin: 0;">The model randomly selects more confident predictions at each step.</p>
+            </div>
+            <div style="background: #ffffff; border-radius: 12px; padding: 1.25rem; border-left: 4px solid #d9a2a0; box-shadow: 0 2px 12px rgba(217, 162, 160, 0.14);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: #d9a2a0; margin: 0 0 0.5rem 0;">3. Refine Globally</h4>
+              <p style="font-size: 0.95rem; line-height: 1.6; color: #474d57; margin: 0;">All input tokens are refined together rather than generated one by one.</p>
+            </div>
+            <div style="background: #ffffff; border-radius: 12px; padding: 1.25rem; border-left: 4px solid #c9ae3d; box-shadow: 0 2px 12px rgba(201, 174, 61, 0.14);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: #c9ae3d; margin: 0 0 0.5rem 0;">4. Adapt by Complexity</h4>
+              <p style="font-size: 0.95rem; line-height: 1.6; color: #474d57; margin: 0;">Entropy-guided sampling spends more steps where content is harder.</p>
+            </div>
+          </div>
+
+          <h3 style="font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #a8afb8 0%, #d6dbe1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.25rem; margin-top: 2.5rem;">Why GRN</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin: 1.5rem 0;">
+            <div style="background: #ffffff; border-radius: 12px; padding: 1.5rem; border-left: 4px solid #78a7d6; box-shadow: 0 2px 12px rgba(120, 167, 214, 0.14);">
+              <h4 style="font-size: 1.05rem; font-weight: 700; color: #78a7d6; margin: 0 0 0.75rem 0;">Diffusion Inefficiency</h4>
+              <p style="font-size: 0.95rem; line-height: 1.7; color: #474d57; margin: 0;">Uniform compute on all samples does not reflect complexity variance. GRN addresses this with adaptive refinement.</p>
+            </div>
+            <div style="background: #ffffff; border-radius: 12px; padding: 1.5rem; border-left: 4px solid #97bbe2; box-shadow: 0 2px 12px rgba(151, 187, 226, 0.14);">
+              <h4 style="font-size: 1.05rem; font-weight: 700; color: #97bbe2; margin: 0 0 0.75rem 0;">Autoregressive Limitations</h4>
+              <p style="font-size: 0.95rem; line-height: 1.7; color: #474d57; margin: 0;">Lossy tokenization and accumulated prediction error can hurt quality. GRN solves this with better tokenization.</p>
+            </div>
+          </div>
+          <div style="background: #f2f3f5; border-radius: 12px; padding: 1.25rem 1.5rem; border-left: 4px solid #a8afb8;">
+            <p style="font-size: 1rem; line-height: 1.7; color: #474d57; margin: 0;">
+              Either diffusion nor autoregressive — GRN is a third way. 🧠 Refines globally like an artist. ⚡ Generates adaptively by complexity. 🏆 New SOTA across image & video. The visual generation paradigm just got rewritten.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Comparison with SOTA -->
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f2f3f5 100%); border-radius: 20px; padding: 2.5rem 3rem; box-shadow: 0 8px 32px rgba(120, 167, 214, 0.22); margin-bottom: 2rem; border: 1px solid rgba(120, 167, 214, 0.14);">
+          <div style="text-align: center; margin: 0 0 2rem 0;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Class-to-Image</h2>
+            <div style="width: 80px; height: 4px; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); border-radius: 2px; margin: 0 auto;"></div>
+          </div>
+          <p style="font-size: 1.15rem; line-height: 1.9; color: #2f3440; margin: 0 0 2rem 0;">
+            GRN demonstrates strong class-conditional generation quality and reconstruction performance. The official implementation reports state-of-the-art results and provides checkpoints and scripts for reproducible class-to-image experiments.
+          </p>
+          <div style="display: flex; justify-content: center; align-items: center;">
+            <img src="assets/grn_c2i_examples.jpg" alt="GRN Class-to-Image Examples" style="width: 100%; border-radius: 10px;" />
+          </div>
+        </div>
+        
+        <!-- Text-to-Image Section -->
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f2f3f5 100%); border-radius: 20px; padding: 2.5rem 3rem; box-shadow: 0 8px 32px rgba(120, 167, 214, 0.22); margin-bottom: 2rem; border: 1px solid rgba(120, 167, 214, 0.14);">
+          <div style="text-align: center; margin: 0 0 2rem 0;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Text-to-Image</h2>
+            <div style="width: 80px; height: 4px; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); border-radius: 2px; margin: 0 auto;"></div>
+          </div>
+          
+          <p style="font-size: 1.15rem; line-height: 1.9; color: #2f3440; margin: 0 0 2rem 0;">
+            The GRN pipeline supports straightforward text-to-image inference with configurable guidance scale, temperature, inference steps, and output resolution. Official examples show 1024x1024 generation from a single prompt.
+          </p>
+          
+          <div style="display: flex; justify-content: center; align-items: center;">
+            <img src="assets/grn_t2i_examples.jpg" alt="GRN Text-to-Image Examples" style="width: 100%; border-radius: 10px;" />
+          </div>
+        </div>
+
+        <!-- Text-to-Video Examples -->
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f2f3f5 100%); border-radius: 20px; padding: 2.5rem 3rem; box-shadow: 0 8px 32px rgba(120, 167, 214, 0.22); margin-bottom: 2rem; border: 1px solid rgba(120, 167, 214, 0.14);">
+          <div style="text-align: center; margin: 0 0 2rem 0;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Text-to-Video</h2>
+            <div style="width: 80px; height: 4px; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); border-radius: 2px; margin: 0 auto;"></div>
+          </div>
+          <p style="font-size: 1.15rem; line-height: 1.9; color: #2f3440; margin: 0 0 2rem 0;">
+            GRN scales beyond class-to-image and text-to-image toward text-to-video, while preserving the same refinement-first philosophy: globally update representations and allocate compute adaptively where complexity requires it.
+          </p>
+          <!-- <div style="background: #f2f3f5; border-radius: 12px; padding: 1.25rem 1.5rem; border-left: 4px solid #c9ae3d; margin-bottom: 1rem;">
+            <p style="font-size: 1rem; line-height: 1.7; color: #474d57; margin: 0;">
+              GRN achieves state-of-the-art results on ImageNet reconstruction and class-conditional generation, and scales effectively to text-to-image and text-to-video tasks.
+            </p>
+          </div>
+          <div style="background: #f2f3f5; border-radius: 12px; padding: 1.25rem 1.5rem; border-left: 4px solid #a8afb8; margin-bottom: 1.5rem;">
+            <p style="font-size: 1rem; line-height: 1.7; color: #474d57; margin: 0;">
+              The same refinement-first design supports visual synthesis across images and videos.
+            </p>
+          </div> -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%;">
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/9__seed_random.mp4" type="video/mp4">
+            </video>
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/36__seed_random.mp4" type="video/mp4">
+            </video>
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/65__seed_random.mp4" type="video/mp4">
+            </video>
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/84__seed_random.mp4" type="video/mp4">
+            </video>
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/92__seed_random.mp4" type="video/mp4">
+            </video>
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/105__seed_random.mp4" type="video/mp4">
+            </video>
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/172__seed_random.mp4" type="video/mp4">
+            </video>
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/202__seed_random.mp4" type="video/mp4">
+            </video>
+            <video poster="" autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/alive_3x3_grid_video_source/261__seed_random.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+    </div>
+  </section>
+  <!-- End image carousel -->
+
+
+  <!-- Video carousel -->
+  <!-- <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3">Results</h2>
+
+        <h2 class="content has-text-justified">
+          Our audio-driven model achieves high-quality generation results under conditions involving diverse reference styles and multiple languages.
+        </h2>
+
+        <h2 class="title is-4">Realistic Style</h2>
+
+        <div id="results-carousel33" class="carousel results-carousel">
+          <div class="item item-video3">
+            <video poster="" id="video5" controls loop height="100%">\
+              <source src="assets/realistic/output (44).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video1" controls loop height="100%">\
+              <source src="assets/realistic/output (22).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video1" controls loop height="100%">\
+              <source src="assets/realistic/goods_4.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video2" controls loop height="100%">\
+              <source src="assets/realistic/output (26).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" controls loop height="100%">\
+              <source src="assets/realistic/output (28).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video4" controls loop height="100%">\
+              <source src="assets/realistic/daihuo-shoubiao-1491.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+
+        <h2 class="title is-4">Cartoon Style</h2>
+
+        <div id="results-carousel33" class="carousel results-carousel">
+          <div class="item item-video3">
+            <video poster="" id="video3" controls loop height="100%">\
+              <source src="assets/cartoon/output (42).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" controls loop height="100%">\
+              <source src="assets/cartoon/output (43).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" controls loop height="100%">\
+              <source src="assets/cartoon/output (39).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" controls loop height="100%">\
+              <source src="assets/cartoon/output (29).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" controls loop height="100%">\
+              <source src="assets/cartoon/output (32).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" controls loop height="100%">\
+              <source src="assets/cartoon/media (1).mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <h2 class="title is-4">Ablation Study</h2>
+        <div class="center-video">
+          <video poster="" id="video110" controls loop height="100%">\
+            <source src="assets/ablation/ablation_crf18.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <h2 class="title is-4">Comparison</h2>
+        <div class="center-video">
+          <video poster="" id="video110" controls loop height="100%">\
+            <source src="assets/compare/longlive_crf18.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="center-video">
+          <video poster="" id="video110" controls loop height="100%">\
+            <source src="assets/compare/rollingforcing_crf18.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="center-video">
+          <video post="video110" controls loop height="100%">\
+            <source src="assets/compare/compare_liveavatar.mp4" type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+  </section> -->
+  <!-- End video carousel -->
+
+  <!-- More Examples -->
+  <section class="section" id="MoreExamples">
+    <div class="container" style="max-width: 1100px !important; margin: 0 auto;">
+      <!-- More Examples Title -->
+      <div style="text-align: center; margin: 0 0 2rem 0;">
+        <h2 style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; letter-spacing: -0.02em;">More Examples</h2>
+        <div style="width: 80px; height: 4px; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); border-radius: 2px; margin: 0 auto;"></div>
+      </div>
+
+      <!-- Block 1: Placeholder Video Examples -->
+      <div style="background: linear-gradient(135deg, #ffffff 0%, #f2f3f5 100%); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(120, 167, 214, 0.22); margin-bottom: 2rem; border: 1px solid rgba(120, 167, 214, 0.14);">
+        <h3 style="font-size: 1.5rem; font-weight: 700; color: #78a7d6; margin-bottom: 0.75rem;">Example Set A</h3>
+        <p style="font-size: 1rem; line-height: 1.8; color: #474d57; margin-bottom: 1.5rem;">
+          Sample videos are kept unchanged for now and can be replaced later.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: start;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/audio_video_sync/2__seed_random.mp4" type="video/mp4">
+            </video>
+          </div>
+          <!-- <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/audio_video_sync/28__seed_random.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/audio_video_sync/36__seed_random.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/audio_video_sync/39__seed_84.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/audio_video_sync/31__seed_random.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/audio_video_sync/38__seed_83.mp4" type="video/mp4">
+            </video>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Block 2: Motion Quality -->
+      <div style="background: linear-gradient(135deg, #ffffff 0%, #f2f3f5 100%); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(151, 187, 226, 0.22); margin-bottom: 2rem; border: 1px solid rgba(151, 187, 226, 0.14);">
+        <h3 style="font-size: 1.5rem; font-weight: 700; color: #97bbe2; margin-bottom: 0.75rem;">Example Set B</h3>
+        <p style="font-size: 1rem; line-height: 1.8; color: #474d57; margin-bottom: 1.5rem;">
+          This section preserves the current video assets while the page text is aligned to GRN.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: start;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/motion_quality/pingpong.mp4" type="video/mp4">
+            </video>
+            <!-- <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/motion_quality/47__seed_random.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/motion_quality/50__seed_random.mp4" type="video/mp4">
+            </video> -->
+          </div>
+          <!-- <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/motion_quality/play_tennis.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/motion_quality/21__seed_random.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/motion_quality/19__seed_random.mp4" type="video/mp4">
+            </video>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Block 3: Photorealistic Quality -->
+      <div style="background: linear-gradient(135deg, #ffffff 0%, #f2f3f5 100%); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(217, 162, 160, 0.22); margin-bottom: 2rem; border: 1px solid rgba(217, 162, 160, 0.14);">
+        <h3 style="font-size: 1.5rem; font-weight: 700; color: #d9a2a0; margin-bottom: 0.75rem;">Example Set C</h3>
+        <p style="font-size: 1rem; line-height: 1.8; color: #474d57; margin-bottom: 1.5rem;">
+          Replace these videos later as needed; structure and layout remain ready.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: start;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/photorealistic_quality/0__seed_random.mp4" type="video/mp4">
+            </video>
+            <!-- <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/photorealistic_quality/17__seed_62.mp4" type="video/mp4">
+            </video> -->
+          </div>
+          <!-- <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/photorealistic_quality/3__seed_random.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/photorealistic_quality/44__seed_89.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/photorealistic_quality/3__seed_48.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/photorealistic_quality/26__seed_random.mp4" type="video/mp4">
+            </video>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Block 4: Unlimited Creativity -->
+      <div style="background: linear-gradient(135deg, #ffffff 0%, #f2f3f5 100%); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(201, 174, 61, 0.24); margin-bottom: 2rem; border: 1px solid rgba(201, 174, 61, 0.14);">
+        <h3 style="font-size: 1.5rem; font-weight: 700; color: #c9ae3d; margin-bottom: 0.75rem;">Example Set D</h3>
+        <p style="font-size: 1rem; line-height: 1.8; color: #474d57; margin-bottom: 1.5rem;">
+          Current videos are temporary placeholders and are intentionally not replaced in this update.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: start;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/0__seed_45.mp4" type="video/mp4">
+            </video>
+            <!-- <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/6__seed_51.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/17__seed_random.mp4" type="video/mp4">
+            </video> -->
+          </div>
+          <!-- <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/1__seed_46.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/7__seed_random.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/16__seed_61.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/5__seed_50.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/11__seed_56.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; display: block;">
+              <source src="assets/unlimited_creativity/24__seed_random.mp4" type="video/mp4">
+            </video>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--Citation -->
+  <section class="section" id="Citation">
+    <div class="container" style="max-width: 1100px !important; margin: 0 auto;">
+      <!-- Citation Title -->
+      <div style="text-align: center; margin: 0 0 1.5rem 0;">
+        <h2 style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Citations</h2>
+        <div style="width: 80px; height: 4px; background: linear-gradient(135deg, #78a7d6 0%, #c9ae3d 50%, #a8afb8 100%); border-radius: 2px; margin: 0 auto;"></div>
+      </div>
+      
+      <p style="color: #585f69; margin-bottom: 1rem;">If you find this work useful, please cite:</p>
+      <div class="citation-box" style="background: #f2f3f5; border-radius: 12px; padding: 20px; position: relative; border: 1px solid #dde3ea;">
+        <button onclick="copyCitation()" class="button is-small" style="position: absolute; top: 15px; right: 15px; background: #ffffff; color: #4a5260; border: 1px solid #d0d7df;">Copy</button>
+        <pre style="background: transparent; color: #333; margin: 0; padding: 0;"><code>@misc{han2026grn,
+  title={Generative Refinement Networks for Visual Synthesis},
+  author={Jian Han and Jinlai Liu and Jiahuan Wang and Bingyue Peng and Zehuan Yuan},
+  year={2026},
+  eprint={2604.13030},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2604.13030}
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ethics Concerns -->
+  <!-- <section class="section" id="Ethics" style="padding: 1.5rem 0;">
+    <div class="container" style="max-width: 1100px !important; margin: 0 auto;">
+      <div style="background: #f2f3f5; border-radius: 8px; padding: 1rem 1.5rem; border-left: 3px solid #c9ae3d;">
+        <p style="color: #666d76; font-size: 0.85rem; line-height: 1.6; margin: 0;">
+          <strong style="color: #474d57;">Notice:</strong> This page currently keeps existing video assets as placeholders; textual content has been updated to align with the GRN project introduction.
+        </p>
+      </div>
+    </div>
+  </section> -->
+
+
+  <footer class="footer" style="background: #fafafa; padding: 40px 0;">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p style="color: #585f69;">
+              Copyright © 2026 GRN Project Page. All rights reserved.
+            </p>
+            <p style="color: #7d858e; font-size: 0.9rem; margin-top: 10px;">
+              The website template is adapted from <a href="https://nerfies.github.io" target="_blank" style="color: #585f69;">Nerfies</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ClustrMaps Visitor Tracker (Hidden) -->
+  <!-- <div style="display: none;">
+    <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=YOUR_CLUSTRMAPS_KEY&cl=ffffff&w=a"></script>
+  </div> -->
+
+  <script>
+    bulmaCarousel.attach('#results-carousel11', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      infinite: true,
+      autoplay: false,
+    });
+    bulmaCarousel.attach('#results-carousel22', {
+      slidesToScroll: 1,
+      slidesToShow: 2,
+      infinite: true,
+      autoplay: false,
+    });
+    bulmaCarousel.attach('#results-carousel33', {
+      slidesToScroll: 3,
+      slidesToShow: 3,
+      infinite: true,
+      autoplay: false,
+    });
+    bulmaCarousel.attach('#results-carousel44', {
+      slidesToScroll: 4,
+      slidesToShow: 4,
+      infinite: true,
+      autoplay: false,
+    });
+  </script>
+
+  <!-- Default Statcounter code for aa2.0
+https://humanaigc.github.io/animate-anyone-2/ -->
+  <script type="text/javascript">
+    var sc_project = 13086045;
+    var sc_invisible = 1;
+    var sc_security = "edb02115"; 
+  </script>
+  <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+  <noscript>
+    <div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img
+          class="statcounter" src="https://c.statcounter.com/13086045/0/edb02115/1/" alt="Web Analytics"
+          referrerPolicy="no-referrer-when-downgrade"></a></div>
+  </noscript>
+
+  <script>
+    function copyCitation() {
+      const citation = `@misc{han2026grn,
+  title={Generative Refinement Networks for Visual Synthesis},
+  author={Jian Han and Jinlai Liu and Jiahuan Wang and Bingyue Peng and Zehuan Yuan},
+  year={2026},
+  eprint={2604.13030},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2604.13030}
+}`;
+      navigator.clipboard.writeText(citation).then(() => {
+        const btn = document.querySelector('.citation-box button');
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+      });
+    }
+  </script>
+
+
+
+</body>
+
+</html>
