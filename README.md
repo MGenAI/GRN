@@ -58,7 +58,7 @@ Starting from a random token map, GRN randomly selects more predictions at each 
 
 ## ✨ Gallery
 
-### 🎬 GRN-8B T2V Gallery
+### GRN-8B Text-to-Video Examples
 
 <div align="center">
   <table style="border-spacing: 6px; margin: auto;">
@@ -82,7 +82,7 @@ Starting from a random token map, GRN randomly selects more predictions at each 
 
 ---
 
-### 🖼️➡️🎬 GRN-8B I2V Gallery
+### GRN-8B Image-to-Video Examples
 
 <div align="center">
   <table style="border-spacing: 6px; margin: auto;">
@@ -104,13 +104,15 @@ Starting from a random token map, GRN randomly selects more predictions at each 
   </table>
 </div>
 
+### GRN-2B Class-to-Image Examples
 <figure align="center">
-  <figcaption><strong><em>GRN-2B Class-to-Image Examples</em></strong></figcaption>
+  <!-- <figcaption><strong><em>GRN-2B Class-to-Image Examples</em></strong></figcaption> -->
   <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
 </figure>
 
+### GRN-2B Text-to-Image Examples
 <figure align="center">
-  <figcaption><strong><em>GRN-2B Text-to-Image Examples</em></strong></figcaption>
+  <!-- <figcaption><strong><em>GRN-2B Text-to-Image Examples</em></strong></figcaption> -->
   <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
 </figure>
 
