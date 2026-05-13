@@ -9,10 +9,8 @@
 
 ---
 
-## ✨ Gallery Showcases
 
 <div align="center">
-  <h3>🎬 GRN-8B T2V & I2V Gallery</h3>
   <table style="border-spacing: 6px; margin: auto;">
     <tr>
       <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6ce844dc-3185-4239-bcf1-d72ff20a3031" width="33%" autoplay muted loop playsinline></video></td>
