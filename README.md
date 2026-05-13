@@ -7,6 +7,59 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/MGenAI/GRN?style=social)](https://github.com/MGenAI/GRN)
 
+---
+
+## ✨ Gallery Showcases
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <h3>🎬 GRN-8B T2V 3×3</h3>
+        <table style="border-spacing: 4px;">
+          <tr>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/01.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/02.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/03.mp4" width="100%" autoplay muted loop playsinline></video></td>
+          </tr>
+          <tr>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/04.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/05.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/06.mp4" width="100%" autoplay muted loop playsinline></video></td>
+          </tr>
+          <tr>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/07.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/08.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/09.mp4" width="100%" autoplay muted loop playsinline></video></td>
+          </tr>
+        </table>
+      </td>
+      <td align="center" width="50%">
+        <h3>🖼️➡️🎬 GRN-8B I2V 3×3</h3>
+        <table style="border-spacing: 4px;">
+          <tr>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/01.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/02.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/03.mp4" width="100%" autoplay muted loop playsinline></video></td>
+          </tr>
+          <tr>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/04.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/05.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/06.mp4" width="100%" autoplay muted loop playsinline></video></td>
+          </tr>
+          <tr>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/07.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/08.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/09.mp4" width="100%" autoplay muted loop playsinline></video></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
 This is the official implementation of the paper **Generative Refinement Networks for Visual Synthesis**. Neither diffusion nor autoregressive — GRN is a third way. 🧠 Refines globally like an artist. ⚡ Generates adaptively by complexity. 🏆 New SOTA across image & video. The visual generation paradigm just got rewritten.
 
 ---
