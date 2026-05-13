@@ -177,6 +177,12 @@ class GRNPipeline:
         
         self.args.cfg_val = guidance_scale
         self.args.tau = temperature
+        self.args.complexity_aware_Tmin = complexity_aware_Tmin
+        self.args.complexity_aware_Tmax = complexity_aware_Tmax
+        self.args.complexity_aware_k = complexity_aware_k
+        self.args.complexity_aware_b = complexity_aware_b
+        self.args.complexity_aware_wp = complexity_aware_wp
+        self.args.snr_shift = snr_shift
         
         # Get dynamic resolution meta
         dynamic_resolution_h_w, h_div_w_templates = get_dynamic_resolution_meta(
@@ -192,10 +198,9 @@ class GRNPipeline:
         
         if content_type == "image":
             num_frames = 1
-            mapped_duration = 0
+            duration = 0
         else:
-            mapped_duration = 5
-            num_frames = min(self.args.video_frames, int(mapped_duration * self.args.video_fps + 1))
+            num_frames = min(self.args.video_frames, int(duration * self.args.video_fps + 1))
         
         scale_schedule = dynamic_resolution_h_w[h_div_w_template_][self.args.pn]['pt2scale_schedule'][(num_frames - 1) // 4 + 1]
         
