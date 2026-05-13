@@ -9,63 +9,13 @@
 
 ---
 
-This is the official implementation of the paper **Generative Refinement Networks for Visual Synthesis**. Neither diffusion nor autoregressive — GRN is a third way. 🧠 Refines globally like an artist. ⚡ Generates adaptively by complexity. 🏆 New SOTA across image & video. The visual generation paradigm just got rewritten.
-
----
-
-<div align="center">
-  <table style="border-spacing: 6px; margin: auto;">
-    <tr>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6ce844dc-3185-4239-bcf1-d72ff20a3031" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/1697066e-f00f-4e23-a55c-c6af5948c4af" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/1023ea4d-d814-4be1-95f2-b1623de0f6bd" width="33%" autoplay muted loop playsinline></video></td>
-    </tr>
-    <tr>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6244dae4-f480-408a-ac3d-19e4d1ef0a2d" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/5aefc8d2-bc99-48e4-bd1c-9b3077c9c35e" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/014e8bb4-04a7-4fa4-a597-d0dfbcc23e02" width="33%" autoplay muted loop playsinline></video></td>
-    </tr>
-    <tr>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6bde1f2e-cebe-4f47-9eac-4fe817c3ebc7" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/b9957300-fa98-411c-83d5-f972621245ad" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/d07cef92-3eec-4e7c-93da-f6c6a8dc1658" width="33%" autoplay muted loop playsinline></video></td>
-    </tr>
-    <tr>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/527f94b0-4b04-4cbb-a86d-9f5ae05fab67" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/0b63a9ed-2940-402f-8339-db0d05a09525" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/8d108a5f-1414-43ca-af6b-8862640741e5" width="33%" autoplay muted loop playsinline></video></td>
-    </tr>
-    <tr>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/64cd45a9-0c2f-4926-bcc0-b8a0a939ae54" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6c31c9e5-0742-4416-925c-16c39bc5a03a" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/4e966b46-6107-4ffe-a24b-37dc3c8461dd" width="33%" autoplay muted loop playsinline></video></td>
-    </tr>
-    <tr>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/56ce2dc1-3b64-4493-ab27-b2ba273c64ef" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/ef45a3f4-8fb2-4bb5-885e-19645e5a0fb5" width="33%" autoplay muted loop playsinline></video></td>
-      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/98e3fbb0-9a54-49e6-8cec-96a42d0634e6" width="33%" autoplay muted loop playsinline></video></td>
-    </tr>
-  </table>
-</div>
-
-<figure align="center">
-  <figcaption><strong><em>Class-to-Image Examples</em></strong></figcaption>
-  <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
-</figure>
-
-<figure align="center">
-  <figcaption><strong><em>Text-to-Image Examples</em></strong></figcaption>
-  <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
-</figure>
-
-
 ## 📋 Table of Contents
 
-- [🚀 Demo](#-demo)
 - [🌟 Introduction](#-introduction)
-- [🍉 Open-Source Plan](#-open-source-plan)
+- [✨ Gallery](#-gallery)
+- [🚀 Demo](#-demo)
 - [📦 Model Zoo](#-model-zoo)
-- [🌟 Installation](#️-installation)
+- [🛠️ Installation](#️-installation)
 - [🖼️ Class-to-Image](#️-class-to-image)
   - [Dataset](#dataset)
   - [Training](#training)
@@ -80,32 +30,9 @@ This is the official implementation of the paper **Generative Refinement Network
 
 ---
 
-## 🚀 Demo
-
-### 🖼️ Text-to-Image
-Try our interactive Text-to-Image demo on 🤗 Hugging Face Space:
-
-**[GRN T2I Demo](https://huggingface.co/spaces/hanjian/GRN)**
-
-Experience the power of Generative Refinement Networks firsthand by generating images from text prompts directly in your browser!
-
----
-
-### 🎬 Text-to-Video
-Try our interactive Text-to-Video demo on Discord:
-
-[![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](http://opensource.bytedance.com/discord/invite)
-
-**[GRN T2V Demo](http://opensource.bytedance.com/discord/invite)**
-
-<figure align="center">
-  <figcaption><strong><em>T2V Demo on Discord</em></strong></figcaption>
-  <img src="demo/t2v_demo.png" width="100%" alt="T2V Demo">
-</figure>
-
----
-
 ## 🌟 Introduction
+
+This is the official implementation of the paper **Generative Refinement Networks for Visual Synthesis**. Neither diffusion nor autoregressive — GRN is a third way. 🧠 Refines globally like an artist. ⚡ Generates adaptively by complexity. 🏆 New SOTA across image & video. The visual generation paradigm just got rewritten.
 
 Diffusion models dominate visual generation but they allocate uniform computational effort to samples with varying levels of complexity. Autoregressive (AR) models are complexity-aware, as evidenced by their variable likelihoods, but suffer from lossy tokenization and error accumulation.
 
@@ -127,24 +54,89 @@ GRN achieves state-of-the-art results on ImageNet reconstruction and class-condi
 Starting from a random token map, GRN randomly selects more predictions at each step and refines all input tokens. For example, compared to the second step, the third step filled six new tokens (<span style="color: rgb(220, 120, 117);">pink</span>), kept two tokens (<span style="color: rgb(88, 160, 227);">blue</span>), erased two tokens (<span style="color: rgb(240, 180, 40);">yellow</span>), and left six tokens blank (<span style="color: rgb(128, 138, 151);">gray</span>).
 </p>
 
+---
 
+## ✨ Gallery
 
-<!-- <figure align="center">
-  <figcaption><strong><em>Text-to-Video Examples</em></strong></figcaption>
-  <video src="https://github.com/user-attachments/assets/8ce16018-0f86-4dfc-b51b-69075e8d0f15" width="100%" controls autoplay muted loop playsinline></video>
-</figure> -->
+### 🎬 GRN-8B T2V Gallery
+
+<div align="center">
+  <table style="border-spacing: 6px; margin: auto;">
+    <tr>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6ce844dc-3185-4239-bcf1-d72ff20a3031" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/1697066e-f00f-4e23-a55c-c6af5948c4af" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/1023ea4d-d814-4be1-95f2-b1623de0f6bd" width="33%" autoplay muted loop playsinline></video></td>
+    </tr>
+    <tr>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6244dae4-f480-408a-ac3d-19e4d1ef0a2d" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/5aefc8d2-bc99-48e4-bd1c-9b3077c9c35e" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/014e8bb4-04a7-4fa4-a597-d0dfbcc23e02" width="33%" autoplay muted loop playsinline></video></td>
+    </tr>
+    <tr>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6bde1f2e-cebe-4f47-9eac-4fe817c3ebc7" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/b9957300-fa98-411c-83d5-f972621245ad" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/d07cef92-3eec-4e7c-93da-f6c6a8dc1658" width="33%" autoplay muted loop playsinline></video></td>
+    </tr>
+  </table>
+</div>
 
 ---
 
-## 🍉 Open-Source Plan
+### 🖼️➡️🎬 GRN-8B I2V Gallery
 
-GRN adopts a minimalist and self-contained design. This implementation is in PyTorch + GPU.
+<div align="center">
+  <table style="border-spacing: 6px; margin: auto;">
+    <tr>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/527f94b0-4b04-4cbb-a86d-9f5ae05fab67" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/0b63a9ed-2940-402f-8339-db0d05a09525" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/8d108a5f-1414-43ca-af6b-8862640741e5" width="33%" autoplay muted loop playsinline></video></td>
+    </tr>
+    <tr>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/64cd45a9-0c2f-4926-bcc0-b8a0a939ae54" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6c31c9e5-0742-4416-925c-16c39bc5a03a" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/4e966b46-6107-4ffe-a24b-37dc3c8461dd" width="33%" autoplay muted loop playsinline></video></td>
+    </tr>
+    <tr>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/56ce2dc1-3b64-4493-ab27-b2ba273c64ef" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/ef45a3f4-8fb2-4bb5-885e-19645e5a0fb5" width="33%" autoplay muted loop playsinline></video></td>
+      <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/98e3fbb0-9a54-49e6-8cec-96a42d0634e6" width="33%" autoplay muted loop playsinline></video></td>
+    </tr>
+  </table>
+</div>
 
-| Task | Checkpoints | Inference Code | Training Code |
-|------|:-----------:|:--------------:|:-------------:|
-| T2V  |     ⬜      |       ⬜        |      ✅       |
-| T2I  |     ✅      |       ⬜        |      ✅       |
-| C2I  |     ⬜      |       ✅        |      ✅       |
+<figure align="center">
+  <figcaption><strong><em>GRN-2B Class-to-Image Examples</em></strong></figcaption>
+  <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
+</figure>
+
+<figure align="center">
+  <figcaption><strong><em>GRN-2B Text-to-Image Examples</em></strong></figcaption>
+  <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
+</figure>
+
+---
+
+## 🚀 Demo
+
+### 🖼️ Text-to-Image
+Try our interactive Text-to-Image demo on 🤗 Hugging Face Space:
+
+**[GRN T2I Demo](https://huggingface.co/spaces/hanjian/GRN)**
+
+Experience the power of Generative Refinement Networks firsthand by generating images from text prompts directly in your browser!
+
+---
+
+### 🎬 Text-to-Video
+Try our interactive Text-to-Video demo on Discord:
+
+[![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](http://opensource.bytedance.com/discord/invite)
+
+
+<figure align="center">
+  <figcaption><strong><em>T2V Demo on Discord</em></strong></figcaption>
+  <img src="demo/t2v_demo.png" width="100%" alt="T2V Demo">
+</figure>
 
 ---
 
@@ -254,7 +246,10 @@ image = result.images[0]
 image.save('./generated_image.jpg')
 ```
 
-## 🎨 Text-to-Video
+---
+
+## 🎬 Text-to-Video
+
 ### Inference
 
 ```python
@@ -286,6 +281,7 @@ result = pipeline(
 video_file = result.videos[0]
 ```
 
+---
 
 ## 📧 Contact
 
