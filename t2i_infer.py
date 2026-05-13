@@ -5,6 +5,7 @@ from grn_pipeline import GRNPipeline
 pipeline = GRNPipeline.from_pretrained(
     hf_repo_id='bytedance-research/GRN',
     task='T2I',
+    pn='1M', 
     device='cpu',
 ).to('cuda')
 
