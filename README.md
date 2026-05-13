@@ -18,19 +18,19 @@
         <h3>🎬 GRN-8B T2V 3×3</h3>
         <table style="border-spacing: 4px;">
           <tr>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/01.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/02.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/03.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6ce844dc-3185-4239-bcf1-d72ff20a3031" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/1697066e-f00f-4e23-a55c-c6af5948c4af" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/1023ea4d-d814-4be1-95f2-b1623de0f6bd" width="100%" autoplay muted loop playsinline></video></td>
           </tr>
           <tr>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/04.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/05.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/06.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6244dae4-f480-408a-ac3d-19e4d1ef0a2d" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/5aefc8d2-bc99-48e4-bd1c-9b3077c9c35e" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/014e8bb4-04a7-4fa4-a597-d0dfbcc23e02" width="100%" autoplay muted loop playsinline></video></td>
           </tr>
           <tr>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/07.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/08.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_t2v_3x3/09.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6bde1f2e-cebe-4f47-9eac-4fe817c3ebc7" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/b9957300-fa98-411c-83d5-f972621245ad" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/d07cef92-3eec-4e7c-93da-f6c6a8dc1658" width="100%" autoplay muted loop playsinline></video></td>
           </tr>
         </table>
       </td>
@@ -38,19 +38,19 @@
         <h3>🖼️➡️🎬 GRN-8B I2V 3×3</h3>
         <table style="border-spacing: 4px;">
           <tr>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/01.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/02.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/03.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/527f94b0-4b04-4cbb-a86d-9f5ae05fab67" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/0b63a9ed-2940-402f-8339-db0d05a09525" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/8d108a5f-1414-43ca-af6b-8862640741e5" width="100%" autoplay muted loop playsinline></video></td>
           </tr>
           <tr>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/04.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/05.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/06.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/64cd45a9-0c2f-4926-bcc0-b8a0a939ae54" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/6c31c9e5-0742-4416-925c-16c39bc5a03a" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/4e966b46-6107-4ffe-a24b-37dc3c8461dd" width="100%" autoplay muted loop playsinline></video></td>
           </tr>
           <tr>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/07.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/08.mp4" width="100%" autoplay muted loop playsinline></video></td>
-            <td style="padding: 2px;"><video src="assets/grn8b_i2v_3x3/09.mp4" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/56ce2dc1-3b64-4493-ab27-b2ba273c64ef" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/ef45a3f4-8fb2-4bb5-885e-19645e5a0fb5" width="100%" autoplay muted loop playsinline></video></td>
+            <td style="padding: 2px;"><video src="https://github.com/user-attachments/assets/98e3fbb0-9a54-49e6-8cec-96a42d0634e6" width="100%" autoplay muted loop playsinline></video></td>
           </tr>
         </table>
       </td>
