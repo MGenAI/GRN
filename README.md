@@ -217,16 +217,18 @@ We use [torch-fidelity](https://github.com/LTH14/torch-fidelity) to evaluate FID
 
 ### Inference
 
-You can simply run `python3 t2iv_infer_simple.py` or use the following code:
+You can simply run `python3 t2i_infer.py` or use the following code:
 
 ```python
 from PIL import Image
-import torch
 from grn_pipeline import GRNPipeline
 
 # Load pipeline
-pipeline = GRNPipeline.from_pretrained(hf_repo_id='bytedance-research/GRN', task='T2I',device='cpu')
-pipeline = pipeline.to('cuda')
+pipeline = GRNPipeline.from_pretrained(
+    hf_repo_id='bytedance-research/GRN',
+    task='T2I',
+    device='cpu',
+).to('cuda')
 
 # Generate one image
 result = pipeline(
@@ -239,10 +241,9 @@ result = pipeline(
     complexity_aware_b = 50,
     complexity_aware_wp = 5,
     snr_shift = 1.,
-    width=1024,
-    height=1024,
+    h_div_w=1.,
     content_type='image',
-    seed=42
+    seed=42,
 )
 image = result.images[0]
 image.save('./generated_image.jpg')
@@ -254,15 +255,19 @@ image.save('./generated_image.jpg')
 
 ### Inference
 
+You can simply run `python3 t2v_infer.py` or use the following code:
+
 ```python
-from PIL import Image
-import torch
 from grn_pipeline import GRNPipeline
 
 # Load pipeline
-pipeline = GRNPipeline.from_pretrained(hf_repo_id='bytedance-research/GRN', task='T2V', device='cpu')
-pipeline = pipeline.to('cuda')
-  
+pipeline = GRNPipeline.from_pretrained(
+    hf_repo_id='bytedance-research/GRN', 
+    task='T2V', 
+    pn='0.41M', 
+    device='cpu'
+).to('cuda')
+
 # Generate one video
 result = pipeline(
     prompt="Two women demonstrate a makeup product, applying it with a sponge while smiling and engaging with the camera in a bright, clean setting.",
@@ -274,11 +279,10 @@ result = pipeline(
     complexity_aware_b = 50,
     complexity_aware_wp = 5,
     snr_shift = 1.,
-    width=480,
-    height=848,
+    h_div_w=9/16,
     duration=2.,
     content_type='video',
-    seed=42
+    seed=42,
 )
 video_file = result.videos[0]
 ```

@@ -37,14 +37,15 @@ class GRNPipeline:
         torch_dtype=torch.bfloat16,
         hf_repo_id=None,
         task='t2i',
+        pn='1M',
     ):
         # download weights from Hugging Face Hub
         if hf_repo_id:
             from huggingface_hub import hf_hub_download, snapshot_download
             print(f"download weights from Hugging Face Hub: {hf_repo_id}")
-            if task == 't2i':
+            if task == 'T2I':
                 model_path = hf_hub_download(repo_id=hf_repo_id, filename="GRN_T2I_2B.pth")
-            elif task == 't2v':
+            elif task == 'T2V':
                 model_path = hf_hub_download(repo_id=hf_repo_id, filename="GRN_T2V_2B.pth")
             else:
                 raise ValueError(f"Unknown task: {task}")
@@ -61,6 +62,7 @@ class GRNPipeline:
             device = torch.device(device)
         args.other_device = device
         args.task = task
+        args.pn = pn
 
         # Derived parameters
         args.max_duration = (args.video_frames - 1) / 4
@@ -81,7 +83,6 @@ class GRNPipeline:
     def _get_default_args():
         class Args:
             def __init__(self):
-                self.pn = '1M'
                 self.video_frames = 81
                 self.model_path = './weights/model.pth'
                 self.vae_path = './weights/hbq_tokenizer.ckpt'
@@ -95,7 +96,6 @@ class GRNPipeline:
                 self.num_lvl = 2
                 self.model = 'GRN2b'
                 self.rope2d_normalized_by_hw = 2
-                self.sampling_per_bits = 1
                 self.text_channels = 4096
                 self.apply_spatial_patchify = 0
                 self.h_div_w_template = 1.0
@@ -162,8 +162,7 @@ class GRNPipeline:
         complexity_aware_b = 50,
         complexity_aware_wp = 5,
         snr_shift = 1.,
-        width=512,
-        height=512,
+        h_div_w=1.,
         duration=2.,
         generator=None,
         content_type='image',
@@ -192,7 +191,6 @@ class GRNPipeline:
         )
         
         # Get scale schedule based on aspect ratio
-        h_div_w = height / width if width != 0 else 1.0
         h_div_w_template_ = h_div_w_templates[np.argmin(np.abs(h_div_w_templates - h_div_w))]
         self.args.mapped_h_div_w_template = h_div_w_template_
         
@@ -214,7 +212,6 @@ class GRNPipeline:
             negative_prompt=negative_prompt, g_seed=seed, gt_leak=self.args.gt_leak, gt_ls_Bl=None,
             cfg_list=self.args.cfg_val, tau_list=self.args.tau, scale_schedule=scale_schedule,
             cfg_insertion_layer=[self.args.cfg_insertion_layer], vae_latent_dim=self.args.vae_latent_dim,
-            sampling_per_bits=self.args.sampling_per_bits, enable_positive_prompt=0,
             args=self.args, get_visual_rope_embeds=self.get_visual_rope_embeds,
             context_info=context_info, noise_list=None, class_token_id=0,
         )

@@ -23,11 +23,7 @@ from grn.models.umt5.t5 import T5EncoderModel
 def extract_key_val(text):
     return {k: v.lstrip() for k, v in re.findall(r'<(.+?):(.+?)>', text)}
 
-def encode_prompt(t5_path, text_tokenizer, text_encoder, prompt, enable_positive_prompt=False, args=None):
-    if enable_positive_prompt:
-        print(f'before positive_prompt aug: {prompt}')
-        prompt = aug_with_positive_prompt(prompt)
-        print(f'after positive_prompt aug: {prompt}')
+def encode_prompt(t5_path, text_tokenizer, text_encoder, prompt, args=None):
     print(f't5 encode prompt: {prompt}')
     text_encoder.model.to(args.other_device)
     text_features = text_encoder([prompt], args.other_device)
@@ -41,13 +37,6 @@ def encode_prompt(t5_path, text_tokenizer, text_encoder, prompt, enable_positive
     kv_compact = kv_compact.to(args.other_device)
     text_cond_tuple = (kv_compact, lens, cu_seqlens_k, Ltext)
     return text_cond_tuple
-
-def aug_with_positive_prompt(prompt):
-    keys = {'man', 'woman', 'men', 'women', 'boy', 'girl', 'child', 'person', 'human', 'adult', 'teenager', 'employee', 
-            'employer', 'worker', 'mother', 'father', 'sister', 'brother', 'grandmother', 'grandfather', 'son', 'daughter'}
-    if any(key in prompt for key in keys):
-        prompt += '. very smooth faces, good looking faces, face to the camera, perfect facial features'
-    return prompt
 
 def gen_one_example(
     model, 
@@ -70,8 +59,6 @@ def gen_one_example(
     gt_leak=-1,
     gt_ls_Bl=None,
     g_seed=None,
-    sampling_per_bits=1,
-    enable_positive_prompt=0,
     input_use_interplote_up=False,
     args=None,
     get_visual_rope_embeds=None,
@@ -88,8 +75,8 @@ def gen_one_example(
     
     text_cond_tuple = []
     for prompt_str in prompt:
-        text_cond_tuple.append(encode_prompt(args.text_encoder_ckpt, text_tokenizer, text_encoder, prompt_str, enable_positive_prompt, args=args))
-    negative_label_B_or_BLT = encode_prompt(args.text_encoder_ckpt, text_tokenizer, text_encoder, negative_prompt, enable_positive_prompt=False, args=args)
+        text_cond_tuple.append(encode_prompt(args.text_encoder_ckpt, text_tokenizer, text_encoder, prompt_str, args=args))
+    negative_label_B_or_BLT = encode_prompt(args.text_encoder_ckpt, text_tokenizer, text_encoder, negative_prompt, args=args)
     print(f'cfg: {cfg_list}, tau: {tau_list}')
     with torch.cuda.amp.autocast(enabled=True, dtype=torch.bfloat16, cache_enabled=True):
         stt = time.time()
@@ -104,7 +91,6 @@ def gen_one_example(
             vae_latent_dim=vae_latent_dim, softmax_merge_topk=softmax_merge_topk,
             ret_img=True, trunk_scale=1000,
             gt_leak=gt_leak, gt_ls_Bl=gt_ls_Bl, inference_mode=True,
-            sampling_per_bits=sampling_per_bits,
             input_use_interplote_up=input_use_interplote_up,
             args=args,
             get_visual_rope_embeds=get_visual_rope_embeds,

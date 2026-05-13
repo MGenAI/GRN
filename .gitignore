@@ -24,3 +24,4 @@ tmp_videos
 weights
 .DS_Store
 local
+*.mp4

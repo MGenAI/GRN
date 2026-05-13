@@ -220,14 +220,9 @@ class GRN(nn.Module):
             other_args.dynamic_scale_schedule, other_args.train_h_div_w_list, other_args.video_frames
         )
         self.train_h_div_w_list = self.h_div_w_templates
-        self.image_scale_repetition = json.loads(other_args.image_scale_repetition)
-        self.video_scale_repetition = json.loads(other_args.video_scale_repetition)
-
         print(f"Arch: {arch}, pn: {self.pn}, num_of_label_value: {self.num_of_label_value}, "
               f"rope2d_normalized_by_hw: {self.rope2d_normalized_by_hw}")
-        print(f"train_h_div_w_list: {self.train_h_div_w_list}, "
-              f"image_scale_repetition: {self.image_scale_repetition}, "
-              f"video_scale_repetition: {self.video_scale_repetition}")
+        print(f"train_h_div_w_list: {self.train_h_div_w_list}")
 
         # 4. Utilities
         self.entrophy_statistics = []
@@ -276,9 +271,6 @@ class GRN(nn.Module):
 
         if other_args.add_scale_token > 0:
             self.pt_embedder = TimestepEmbedder(self.embed_dim)
-        if other_args.add_class_token > 0:
-            self.class_tokens = nn.Parameter(torch.randn(1001, 1, other_args.add_class_token, self.embed_dim))
-            print(f"class_tokens shape: {self.class_tokens.shape}")
 
         # 6. Transformer Blocks
         self.attn_fn_compile_dict = {}
@@ -361,7 +353,7 @@ class GRN(nn.Module):
                 acc_list.append(acc_this_scale.mean(-1))
                 
                 global_scale_ptr += 1
-                global_token_ptr += mul_pt_ph_pw + self.other_args.add_scale_token + self.other_args.add_class_token
+                global_token_ptr += mul_pt_ph_pw + self.other_args.add_scale_token
                 
         loss_tensor = torch.cat(loss_list) if loss_list else torch.tensor([], device=hidden_states.device)
         acc_tensor = torch.cat(acc_list) if acc_list else torch.tensor([], device=hidden_states.device)
@@ -425,20 +417,12 @@ class GRN(nn.Module):
             with torch.amp.autocast('cuda', dtype=torch.float32):
                 pt_tokens = self.pt_embedder(torch.tensor([info['scale_token_id'] for info in other_info_by_scale], device=device))
             x_BLC = [torch.cat((x_BLC[ind], pt_tokens[ind].unsqueeze(0)), dim=1) for ind in range(len(x_BLC))]
-
-        # add class tokens
-        if self.other_args.add_class_token > 0:
-            class_tokens = [self.class_tokens[info['class_token_id']] for info in other_info_by_scale]
-            x_BLC = [torch.cat((x_BLC[ind], class_tokens[ind]), dim=1) for ind in range(len(x_BLC))]
         
-        if self.other_args.add_class_token > 0: # c2i
-            x_BLC = torch.cat(x_BLC, dim=1)
-        else:
-            # add text tokens
-            kv_compact, lens, cu_seqlens_k, max_seqlen_k, _ = label_B_or_BLT
-            with torch.amp.autocast('cuda', dtype=torch.float32):
-                kv_compact = self.text_proj(kv_compact).contiguous()
-            x_BLC = torch.cat(x_BLC+[kv_compact.unsqueeze(0)], dim=1)
+        # add text tokens
+        kv_compact, lens, cu_seqlens_k, max_seqlen_k, _ = label_B_or_BLT
+        with torch.amp.autocast('cuda', dtype=torch.float32):
+            kv_compact = self.text_proj(kv_compact).contiguous()
+        x_BLC = torch.cat(x_BLC+[kv_compact.unsqueeze(0)], dim=1)
         
         if pad_seq_len > 0:
             assert super_scale_lengths[-1] == pad_seq_len, f'{super_scale_lengths[-1]}!= {pad_seq_len}, attention will be wrong, this error is fatal!!!'
@@ -468,8 +452,6 @@ class GRN(nn.Module):
             rope_cache_list.append(visual_rope_cache[i])
             if self.other_args.add_scale_token > 0: # rope for pt tokens
                 rope_cache_list.append(self.rope2d_freqs_grid['freqs_text'][:,:,:,:,512:512+self.other_args.add_scale_token])
-            if self.other_args.add_class_token > 0: # rope for class tokens
-                rope_cache_list.append(self.rope2d_freqs_grid['freqs_text'][:,:,:,:,552:552+self.other_args.add_class_token])
         for i in range(len(lens)):
             rope_cache_list.append(self.rope2d_freqs_grid['freqs_text'][:,:,:,:,:lens[i]])
         rope_cache = torch.cat(rope_cache_list, dim=4)
@@ -593,7 +575,6 @@ class GRN(nn.Module):
             this_scale_var_input = torch.zeros((1,args.detail_scale_dim,*scale_schedule[-1]), device=prefix_tokens.device, dtype=prefix_tokens.dtype)
         
         scale_token_rope_cache = self.rope2d_freqs_grid['freqs_text'][:,:,:,:,512:512+args.add_scale_token]
-        class_token_rope_cache = self.rope2d_freqs_grid['freqs_text'][:,:,:,:,552:552+args.add_class_token]
         if noise_list is not None:
             absolute_gt_labels = noise_list[0].to('cuda').permute(0,2,3,4,1) # [B,d,t,h,w] -> [B,t,h,w,d]
         assert len(scale_schedule) == 1
@@ -601,10 +582,7 @@ class GRN(nn.Module):
         pn = scale_schedule[0]
         pt, ph, pw = pn
         mul_pt_ph_pw = pt * ph * pw
-        if args.add_class_token > 0:
-            ref_text_scale_inds = []
-        else:
-            ref_text_scale_inds = [f't0']
+        ref_text_scale_inds = [f't0']
         repeat_idx = -1
         cur_round_scales = args.max_infer_steps
         pure_rand_labels = torch.randint(low=0, high=classes, size=this_scale_var_input.shape, device=this_scale_var_input.device, dtype=this_scale_var_input.dtype)
@@ -629,20 +607,15 @@ class GRN(nn.Module):
                 pt_tokens = self.pt_embedder(torch.tensor([scale_token_id], device=device))
                 last_stage = torch.cat((last_stage, pt_tokens), dim=1)
                 rope_cache = torch.cat((rope_cache, scale_token_rope_cache), dim=4)
-            if args.add_class_token > 0:
-                last_stage_cond = torch.cat((last_stage, self.class_tokens[class_token_id]), dim=1)
-                last_stage_uncond = torch.cat((last_stage, self.class_tokens[uncond_class_token_id]), dim=1)
-                rope_cache = torch.cat((rope_cache, class_token_rope_cache), dim=4)
-            else:
-                last_stage_cond = last_stage
-                last_stage_uncond = last_stage
+            last_stage_cond = last_stage
+            last_stage_uncond = last_stage
             if use_cfg:
                 last_stage = torch.cat([last_stage_cond, last_stage_uncond], dim=1)
                 rope_cache = torch.cat([rope_cache, rope_cache], dim=4)
-                split_cond_uncond = [mul_pt_ph_pw+args.add_scale_token+args.add_class_token] * 2
+                split_cond_uncond = [mul_pt_ph_pw+args.add_scale_token] * 2
             else:
                 last_stage = last_stage_cond
-                split_cond_uncond = [mul_pt_ph_pw+args.add_scale_token+args.add_class_token]
+                split_cond_uncond = [mul_pt_ph_pw+args.add_scale_token]
             e, e0 = None, None
             last_diffusion_step = False
             for block_idx, b in enumerate(block_chunks):
@@ -662,7 +635,7 @@ class GRN(nn.Module):
 
             pred_cond_labels = torch.argmax(pred_cond_probs, dim=-1) # [B,thw,d]
             pred_cond_labels = bld_to_bthwd(pred_cond_labels, pt, ph, pw)
-            pred_uncond_logits = logits[:,(mul_pt_ph_pw+args.add_scale_token+args.add_class_token):(2*mul_pt_ph_pw+args.add_scale_token+args.add_class_token)] # [B,thw,d,2]
+            pred_uncond_logits = logits[:,(mul_pt_ph_pw+args.add_scale_token):(2*mul_pt_ph_pw+args.add_scale_token)] # [B,thw,d,2]
             if cfg != 1:
                 pred_cfg_logits = pred_uncond_logits + cfg * (pred_cond_logits - pred_uncond_logits)
             else:
@@ -720,6 +693,7 @@ class GRN(nn.Module):
             pred_sample_labels = pred_sample_labels.permute(0,4,1,2,3) # [B,t,h,w,d] -> [B,d,t,h,w]
             pred_sample_probs = pred_sample_probs.permute(0,4,1,2,3) # [B,t,h,w,d] -> [B,d,t,h,w]
             use_predict_mask = torch.rand(pred_sample_labels.shape, device=device) < next_pt
+            next_pt = use_predict_mask.float().mean().item()
             mixed_xt = torch.where(use_predict_mask, pred_sample_labels, pure_rand_labels)
             this_scale_var_input = multiclass_labels2onehot_input(mixed_xt, classes) # [B,d*num_classes,t,h,w]
             pbar.update(1)
