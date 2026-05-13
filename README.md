@@ -1,6 +1,7 @@
 # GRN: Generative Refinement Networks
 
 [![arXiv](https://img.shields.io/badge/arXiv%20paper-2604.13030-b31b1b.svg)](https://arxiv.org/abs/2604.13030)
+[![Homepage](https://img.shields.io/badge/🏠%20Homepage-GRN-green.svg)](https://mgenai.github.io/GRN/)
 [![Models](https://img.shields.io/badge/🤗%20Hugging%20Face-Models-blue.svg)](https://huggingface.co/bytedance-research/GRN)
 [![Demo](https://img.shields.io/badge/🤗%20Hugging%20Face-Demo-yellow.svg)](https://huggingface.co/spaces/hanjian/GRN)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -23,6 +24,8 @@ This is the official implementation of the paper **Generative Refinement Network
   - [Evaluation](#evaluation)
 - [🎨 Text-to-Image](#-text-to-image)
   - [Inference](#inference)
+- [🎬 Text-to-Video](#-text-to-video)
+  - [Inference](#inference-1)
 - [📧 Contact](#-contact)
 - [🤗 Acknowledgements](#-acknowledgements)
 - [📝 Citation](#-citation)
@@ -31,11 +34,26 @@ This is the official implementation of the paper **Generative Refinement Network
 
 ## 🚀 Demo
 
+### 🖼️ Text-to-Image
 Try our interactive Text-to-Image demo on 🤗 Hugging Face Space:
 
 **[GRN T2I Demo](https://huggingface.co/spaces/hanjian/GRN)**
 
 Experience the power of Generative Refinement Networks firsthand by generating images from text prompts directly in your browser!
+
+---
+
+### 🎬 Text-to-Video
+Try our interactive Text-to-Video demo on Discord:
+
+[![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](http://opensource.bytedance.com/discord/invite)
+
+**[GRN T2V Demo](http://opensource.bytedance.com/discord/invite)**
+
+<figure align="center">
+  <figcaption><strong><em>T2V Demo on Discord</em></strong></figcaption>
+  <img src="demo/t2v_demo.png" width="100%" alt="T2V Demo">
+</figure>
 
 ---
 
@@ -96,8 +114,8 @@ GRN adopts a minimalist and self-contained design. This implementation is in PyT
 |-------|:-----------:|
 | **Tokenizers** | ✅ [ImageNet Tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_image_tokenizer_16dim_M4.ckpt)<br>✅ [Joint Image/Video Tokenizer](https://huggingface.co/bytedance-research/GRN/blob/main/HBQ_tokenizer_64dim_M4.ckpt) |
 | **GRN_ind_C2I** | ✅ [B](https://huggingface.co/bytedance-research/GRN/blob/main/GRN_ind_B_ep599.pth)<br>⬜ L (TBD)<br>⬜ H (TBD)<br>⬜ G (TBD) |
-| **GRN_bit_T2I** | ✅ [GRN_T2I](https://huggingface.co/bytedance-research/GRN/blob/main/t2i_model_tmp.pth) |
-| **GRN_bit_T2V** | ⬜ GRN_T2V (TBD) |
+| **GRN_bit_T2I** | ✅ [GRN_T2I](https://huggingface.co/bytedance-research/GRN/blob/main/GRN_T2I_2B.pth) |
+| **GRN_bit_T2V** | ✅ [GRN_T2V](https://huggingface.co/bytedance-research/GRN/blob/main/GRN_T2V_2B.pth) |
 
 ---
 
@@ -173,7 +191,7 @@ import torch
 from grn_pipeline import GRNPipeline
 
 # Load pipeline
-pipeline = GRNPipeline.from_pretrained(hf_repo_id='bytedance-research/GRN', device='cpu')
+pipeline = GRNPipeline.from_pretrained(hf_repo_id='bytedance-research/GRN', task='T2I',device='cpu')
 pipeline = pipeline.to('cuda')
 
 # Generate one image
@@ -181,7 +199,12 @@ result = pipeline(
     prompt="A cute cat playing in the garden",
     guidance_scale=3.0,
     temperature=1.1,
-    num_inference_steps=50,
+    complexity_aware_Tmin=10,
+    complexity_aware_Tmax=50,
+    complexity_aware_k = 0,
+    complexity_aware_b = 50,
+    complexity_aware_wp = 5,
+    snr_shift = 1.,
     width=1024,
     height=1024,
     content_type='image',
@@ -190,6 +213,39 @@ result = pipeline(
 image = result.images[0]
 image.save('./generated_image.jpg')
 ```
+
+## 🎨 Text-to-Video
+### Inference
+
+```python
+from PIL import Image
+import torch
+from grn_pipeline import GRNPipeline
+
+# Load pipeline
+pipeline = GRNPipeline.from_pretrained(hf_repo_id='bytedance-research/GRN', task='T2V', device='cpu')
+pipeline = pipeline.to('cuda')
+  
+# Generate one video
+result = pipeline(
+    prompt="Two women demonstrate a makeup product, applying it with a sponge while smiling and engaging with the camera in a bright, clean setting.",
+    guidance_scale=4.0,
+    temperature=1.0,
+    complexity_aware_Tmin=10,
+    complexity_aware_Tmax=50,
+    complexity_aware_k = 0,
+    complexity_aware_b = 50,
+    complexity_aware_wp = 5,
+    snr_shift = 1.,
+    width=480,
+    height=848,
+    duration=2.,
+    content_type='video',
+    seed=42
+)
+video_file = result.videos[0]
+```
+
 
 ## 📧 Contact
 
