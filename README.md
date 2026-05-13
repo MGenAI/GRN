@@ -9,6 +9,11 @@
 
 ---
 
+---
+
+This is the official implementation of the paper **Generative Refinement Networks for Visual Synthesis**. Neither diffusion nor autoregressive — GRN is a third way. 🧠 Refines globally like an artist. ⚡ Generates adaptively by complexity. 🏆 New SOTA across image & video. The visual generation paradigm just got rewritten.
+
+---
 
 <div align="center">
   <table style="border-spacing: 6px; margin: auto;">
@@ -45,11 +50,16 @@
   </table>
 </div>
 
----
+<figure align="center">
+  <figcaption><strong><em>Class-to-Image Examples</em></strong></figcaption>
+  <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
+</figure>
 
-This is the official implementation of the paper **Generative Refinement Networks for Visual Synthesis**. Neither diffusion nor autoregressive — GRN is a third way. 🧠 Refines globally like an artist. ⚡ Generates adaptively by complexity. 🏆 New SOTA across image & video. The visual generation paradigm just got rewritten.
+<figure align="center">
+  <figcaption><strong><em>Text-to-Image Examples</em></strong></figcaption>
+  <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
+</figure>
 
----
 
 ## 📋 Table of Contents
 
@@ -119,20 +129,12 @@ GRN achieves state-of-the-art results on ImageNet reconstruction and class-condi
 Starting from a random token map, GRN randomly selects more predictions at each step and refines all input tokens. For example, compared to the second step, the third step filled six new tokens (<span style="color: rgb(220, 120, 117);">pink</span>), kept two tokens (<span style="color: rgb(88, 160, 227);">blue</span>), erased two tokens (<span style="color: rgb(240, 180, 40);">yellow</span>), and left six tokens blank (<span style="color: rgb(128, 138, 151);">gray</span>).
 </p>
 
-<figure align="center">
-  <figcaption><strong><em>Class-to-Image Examples</em></strong></figcaption>
-  <img src="demo/c2i_examples.jpg" width="100%" alt="Class-to-Image Examples">
-</figure>
 
-<figure align="center">
-  <figcaption><strong><em>Text-to-Image Examples</em></strong></figcaption>
-  <img src="demo/t2i_examples.jpg" width="100%" alt="Text-to-Image Examples">
-</figure>
 
-<figure align="center">
+<!-- <figure align="center">
   <figcaption><strong><em>Text-to-Video Examples</em></strong></figcaption>
   <video src="https://github.com/user-attachments/assets/8ce16018-0f86-4dfc-b51b-69075e8d0f15" width="100%" controls autoplay muted loop playsinline></video>
-</figure>
+</figure> -->
 
 ---
 
